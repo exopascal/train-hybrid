@@ -1,0 +1,193 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===========================
+   Design Tokens – TRAIN HYBRID CI
+   =========================== */
+
+:root {
+  /* ===== Brand Colors ===== */
+  /* Verbindung zu EXOPEK: Orange bleibt Akzentfarbe */
+  --color-brand-primary: #1b263b;    /* Deep Navy — Vertrauen, Fokus */
+  --color-brand-secondary: #4a6a7f;  /* Blue Gray — Wissenschaftlich, ruhig */
+  --color-brand-accent: #f97316;     /* Orange — Wärme, Verbindung zu EXOPEK */
+  --color-brand-dark: #0f172a;       /* Dunkelblau statt Schwarz */
+  --color-brand-light: #f8fafc;      /* Hellweiß, Clean */
+
+  /* ===== Semantic Colors ===== */
+  --color-background: #ffffff;
+  --color-background-secondary: #f1f5f9; /* leicht kühler als Gym */
+  --color-background-dark: #0f172a;
+  --color-background-glass: rgba(255, 255, 255, 0.08);
+
+  --color-text-primary: #1e293b;   /* Dunkles Blau-Grau */
+  --color-text-secondary: #475569; /* Ruhiger Sekundärton */
+  --color-text-light: #ffffff;
+  --color-text-muted: #94a3b8;
+
+  /* ===== Gradients ===== */
+  --gradient-primary: linear-gradient(135deg, var(--color-brand-secondary) 0%, var(--color-brand-primary) 100%);
+  --gradient-accent: linear-gradient(135deg, var(--color-brand-accent) 0%, var(--color-brand-secondary) 100%);
+
+  --color-success: #22c55e;   /* Grün für Vitalität */
+  --color-error: #ef4444;
+  --color-warning: #f59e0b;
+  --color-info: #3b82f6;
+
+  /* ===== Typography ===== */
+  --font-family-base: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-family-heading: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-family-mono: "SF Mono", Monaco, "Roboto Mono", monospace;
+
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+  --font-size-6xl: 3.75rem;
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* ===== Spacing & Sizing ===== */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
+  --spacing-4xl: 6rem;
+
+  --container-max-width: 1200px;
+  --container-padding: var(--spacing-lg);
+  --header-height: 0px;
+
+  /* ===== Shadows ===== */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+  /* ===== Border Radius ===== */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* ===== Transitions ===== */
+  --transition-fast: 150ms ease-in-out;
+  --transition-normal: 250ms ease-in-out;
+  --transition-slow: 400ms ease-in-out;
+
+  /* ===== Z-Index ===== */
+  --z-sticky: 100;
+
+  /* ===== Components ===== */
+  --button-padding-md: var(--spacing-md) var(--spacing-xl);
+  --input-padding: var(--spacing-md);
+  --card-padding: var(--spacing-xl);
+  --card-border-radius: var(--radius-lg);
+}
+
+/* ===========================
+   Base Styles
+   =========================== */
+
+html {
+  font-family: var(--font-family-base);
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-heading);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+}
+
+p {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-md);
+}
+
+a {
+  color: var(--color-brand-accent);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-brand-secondary);
+}
+
+/* ===========================
+   GSAP Text Animation
+   =========================== */
+
+.HeadlineGsapSplitText {
+  color: var(--color-brand-accent);
+}
+
+/* ===========================
+   Gradients
+   =========================== */
+
+.gradient-primary {
+  background: var(--gradient-primary);
+}
+
+.gradient-accent {
+  background: var(--gradient-accent);
+}
+
+/* ===========================
+   Glass Effect (optional)
+   =========================== */
+
+.glass {
+  background: var(--color-background-glass);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* ===========================
+   Responsive
+   =========================== */
+
+@media (max-width: 768px) {
+  :root {
+    --container-padding: var(--spacing-md);
+    --font-size-5xl: 2.25rem;
+    --font-size-4xl: 1.875rem;
+  }
+}
+
+/* ===========================
+   Dark Mode
+   =========================== */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #0f172a;
+    --color-background-secondary: #1e293b;
+    --color-text-primary: #f8fafc;
+    --color-text-secondary: #cbd5e1;
+    --color-brand-primary: #4a6a7f;
+    --color-brand-secondary: #64748b;
+  }
+}

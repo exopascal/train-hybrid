@@ -1,0 +1,10 @@
+name = "train-hybrid"
+compatibility_date = "2024-11-05"
+pages_build_output_dir = ".output/public"
+
+[env.production]
+vars = { }
+
+[env.production.vars]
+# Add BUILDER_API_KEY via Cloudflare Dashboard
+# BUILDER_API_KEY = "your-api-key-here"
