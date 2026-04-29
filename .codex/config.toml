@@ -1,0 +1,7 @@
+# Project-scoped Codex config
+# Leave empty to inherit defaults from ~/.codex/config.toml
+
+[features]
+# Enable multi-agent support for this repo
+multi_agent = true
+collaboration_modes = true
