@@ -9,13 +9,15 @@ const props = withDefaults(
     body?: string
     rightHeadline?: string
     imageSrc?: string
+    logoSrc?: string
   }>(),
   {
     headline: "Leicht getragen.\nStark trainiert.\nDas ist EXOPEK.",
-    rightHeadline: "2,3 kg Eigengwicht. 252kg elastischer Widerstand. Leistung unter Widerstand.",
+    rightHeadline: "2,3 kg Eigengewicht. 252kg elastischer Widerstand. Leistung unter Widerstand.",
     body:
       "EXOPEK Pro integriert effektives Krafttraining direkt in dein Lauf- oder Radtraining – ohne zusätzliche Einheiten im Fitnessstudio. Mit nur 2,3 kg Eigengewicht erzeugt das System bis zu 252 kg elastischen Widerstand. Du trägst es wie einen Rucksack und setzt gezielte Widerstandsreize während deiner normalen Bewegung. Das verändert dein Training spürbar. Mehr muskuläre Stabilität. Effizientere Kraftübertragung. Höhere Belastbarkeit im Ausdauertraining. Weniger struktureller Verschleiß bei regelmäßiger Beanspruchung. Krafttraining wird nicht ergänzt. Es wird integriert – beim Laufen, im Radsport, im Alltag. EXOPEK Pro ersetzt dein Ausdauertraining nicht. Es ergänzt es strukturell – für mehr Substanz, mehr Widerstandsfähigkeit und nachhaltige athletische Entwicklung.",
     imageSrc: "/krafttraining-ausdauersportler-mobil-outdoor-hybrid.jpg",
+    logoSrc: "/Exopek_Logo_Wortmarke-Bildmarke_weiss.png",
   },
 )
 
@@ -75,6 +77,12 @@ onBeforeUnmount(() => {
   <section class="rucksack-exopek">
     <div class="rucksack-exopek__inner">
       <div class="rucksack-exopek__right">
+        <img
+          v-if="props.logoSrc"
+          class="rucksack-exopek__logo"
+          :src="props.logoSrc"
+          alt="EXOPEK Logo"
+        />
           <h2 class="rucksack-exopek__headline">
             <span v-for="(line, index) in headlineParts" :key="`hl-${index}`">
               {{ line }}
@@ -165,6 +173,12 @@ onBeforeUnmount(() => {
   justify-content: flex-start;
   gap: 1.5rem;
   padding-top: 2rem;
+}
+
+.rucksack-exopek__logo {
+  width: min(220px, 70vw);
+  height: auto;
+  display: block;
 }
 
 .rucksack-exopek__right-headline {

@@ -1,4 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+const nitroPreset = process.env.NITRO_PRESET || 'cloudflare-pages'
+
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
 
@@ -8,11 +10,10 @@ export default defineNuxtConfig({
   ],
 
   // Ensure the dev server binds to an overridable IPv4 host/port.
-  // Leave port undefined unless explicitly provided so Nuxt can fall back
-  // to a random available port when 3000 is already in use.
+  // Default to 3001 locally because 3000 is already reserved.
   devServer: {
     host: process.env.NUXT_HOST || '127.0.0.1',
-    port: process.env.NUXT_PORT || process.env.PORT ? Number(process.env.NUXT_PORT || process.env.PORT) : undefined,
+    port: Number(process.env.NUXT_PORT || process.env.PORT || 3001),
   },
 
   postcss: {
@@ -24,34 +25,43 @@ export default defineNuxtConfig({
 
   // Vite configuration
   vite: {
-    // Disable hash function that requires Node 21+
+    server: {
+      hmr: {
+        overlay: false,
+      },
+    },
+    // Keep target conservative for broader runtime compatibility.
     build: {
       target: 'es2020',
     },
-  },
-
-  // Builder.io Configuration
-  runtimeConfig: {
-    OPENAI_API_KEY: process.env.OPENAI_API_KEY || '',
-    public: {
-      builderApiKey: process.env.BUILDER_API_KEY || '',
+    optimizeDeps: {
+      include: ['gsap', 'gsap/ScrollTrigger', 'gsap/MotionPathPlugin', 'split-type'],
     },
   },
 
   // Cloudflare Pages Optimization
   nitro: {
-    preset: 'cloudflare-pages',
-    prerender: {
-      routes: ['/kurse', '/preise', '/team'],
-    },
+    preset: nitroPreset,
     routeRules: {
       '/pages/blog': { redirect: '/blog' },
       '/pages/blog/**': { redirect: '/blog' },
+      '/blog': {
+        headers: {
+          'cache-control': 'no-store',
+        },
+      },
+      '/blog/**': {
+        headers: {
+          'cache-control': 'no-store',
+        },
+      },
     },
   },
 
   // Hydration mismatch prevention
   experimental: {
+    // Work around Nuxt/Vite import-analysis failures for `#app-manifest`.
+    appManifest: false,
     payloadExtraction: false,
   },
 
@@ -73,6 +83,10 @@ export default defineNuxtConfig({
       meta: [
         { name: 'description', content: 'Train Hybrid - Fitness & Training' },
       ],
+      link: [
+        { rel: 'icon', type: 'image/png', href: '/train-hybrid-logo.png' },
+        { rel: 'apple-touch-icon', href: '/train-hybrid-logo.png' },
+      ],
     },
   },
 
@@ -84,10 +98,4 @@ export default defineNuxtConfig({
 
   // Devtools can slow startup; allow opt-out via env.
   devtools: { enabled: process.env.NUXT_DEVTOOLS !== 'false' },
-
-  vite: {
-    optimizeDeps: {
-      include: ['gsap', 'gsap/ScrollTrigger', 'gsap/MotionPathPlugin', 'split-type'],
-    },
-  },
 })

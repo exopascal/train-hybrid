@@ -18,7 +18,7 @@
   /* ===== Semantic Colors ===== */
   --color-background: #ffffff;
   --color-background-secondary: #f1f5f9; /* leicht kühler als Gym */
-  --color-background-dark: #0f172a;
+  --color-background-dark: #f6f6f6;
   --color-background-glass: rgba(255, 255, 255, 0.08);
 
   --color-text-primary: #1e293b;   /* Dunkles Blau-Grau */
@@ -121,7 +121,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 p {
-  color: var(--color-text-secondary);
+  color: inherit;
   margin-bottom: var(--spacing-md);
 }
 
@@ -183,11 +183,12 @@ a:hover {
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-background: #0f172a;
-    --color-background-secondary: #1e293b;
-    --color-text-primary: #f8fafc;
-    --color-text-secondary: #cbd5e1;
-    --color-brand-primary: #4a6a7f;
-    --color-brand-secondary: #64748b;
+    --color-background: #ffffff;
+    --color-background-secondary: #f1f5f9;
+    --color-background-dark: #f6f6f6;
+    --color-text-primary: #1e293b;
+    --color-text-secondary: #475569;
+    --color-brand-primary: #1b263b;
+    --color-brand-secondary: #4a6a7f;
   }
 }

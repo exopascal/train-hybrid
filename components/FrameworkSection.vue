@@ -53,13 +53,67 @@ const setActiveStep = (index: number) => {
 const props = withDefaults(
   defineProps<{
     bgStyle?: SectionBackgroundStyle
+    titleTop?: string
+    subtitleTop?: string
     headline?: string
     subhead?: string
+    body?: string
+    steps?: Array<{
+      num: string
+      title: string
+      text: string
+    }>
   }>(),
   {
     bgStyle: "night",
+    titleTop: "Das Train Hybrid Protokoll",
+    subtitleTop: "Deine Routine bleibt. Der Widerstand kommt dazu. Mehr brauchst du nicht",
     headline: "12‑Wochen<br><span class=\"no-break\">Hybrid Training</span>",
     subhead: "Struktur. Progression. Integration.",
+    body:
+      "Nur Ausdauertraining reicht nicht. Wer langfristig leistungsfähig bleiben will, muss Kraft trainieren. Wenn du Ausdauer ernst nimmst, muss dein Muskeltraining mithalten. EXOPEK macht Krafttraining zum Teil deiner bestehenden Routine.",
+    steps: () => [
+      {
+        num: "01",
+        title: "Onboarding",
+        text: "Analyse & Anamnese deines aktuellen Trainings.",
+      },
+      {
+        num: "02",
+        title: "Trainingswochen 1–4",
+        text: "Systemintegration. Anatomische Anpassung. Strukturelle Stabilisierung.",
+      },
+      {
+        num: "03",
+        title: "Meilenstein-Check",
+        text: "Belastbarkeit überprüfen. Progression wird freigegeben.",
+      },
+      {
+        num: "04",
+        title: "Trainingswochen 5–8",
+        text: "Intensitätsaufbau. Kraftentwicklung unter Belastung. Volumensteuerung.",
+      },
+      {
+        num: "05",
+        title: "Meilenstein-Check",
+        text: "Anpassung des Mesozyklus. Feinjustierung von Intensität und Widerstand.",
+      },
+      {
+        num: "06",
+        title: "Trainingswochen 9–11",
+        text: "Intensivierung. Leistungsintegration in deine Ausdauer-Routine.",
+      },
+      {
+        num: "07",
+        title: "Deload-Woche",
+        text: "Regeneration. Superkompensation. Strukturelle Konsolidierung.",
+      },
+      {
+        num: "08",
+        title: "Abschlussbewertung",
+        text: "Objektive Belastbarkeitsanalyse. Trainingsplanung.",
+      },
+    ],
   },
 )
 
@@ -198,6 +252,8 @@ onMounted(() => {
       start: "top top",
       end: "+=180%",
       pin: true,
+      pinType: "fixed",
+      pinReparent: true,
       scrub: 0.6,
       anticipatePin: 1,
       invalidateOnRefresh: true,
@@ -283,14 +339,13 @@ onBeforeUnmount(() => {
         </svg>
       </ClientOnly>
     </div>
-    <div class="framework-shade" aria-hidden="true"></div>
     <div class="framework-content mx-auto max-w-[1500px] px-6 py-24 sm:py-32 lg:py-36">
-      <div class="mb-12 space-y-3 pl-12 text-left text-neutral-900">
-        <p class="text-4xl font-semibold leading-tight sm:text-6xl lg:text-7xl">
-          Das Hybrid Training Protokoll
+      <div class="mb-12 space-y-3 pl-12 text-left text-white">
+          <p class="text-4xl font-semibold leading-tight text-white sm:text-6xl lg:text-7xl">
+          {{ props.titleTop }}
         </p>
         <p class="framework-subheadline text-2xl sm:text-3xl lg:text-4xl">
-          Deine Routine bleibt. Der Widerstand kommt dazu. Mehr brauchst du nicht
+          {{ props.subtitleTop }}
         </p>
       </div>
       <div class="framework-box">
@@ -301,103 +356,31 @@ onBeforeUnmount(() => {
             {{ props.subhead }}
           </p>
           <p class="framework-body">
-            Kilometer sammeln kann jeder. Belastbar werden nur die, die Widerstand integrieren. Wenn du Ausdauer ernst nimmst, muss dein Muskeltraining mithalten. EXOPEK macht Krafttraining zum Teil deiner bestehenden Routine. Nicht irgendwie. Irgendwo. Irgendwann. Sondern jetzt.
+            {{ props.body }}
           </p>
         </div>
           <div class="framework-flow">
-          <div class="flow-list">
-            <div class="flow-item" :class="{ 'is-active': activeStep >= 0 }">
-              <div class="flow-left">
-                <div class="flow-header">
-                  <span class="flow-check">01</span>
-                  <p class="flow-title">Onboarding</p>
+            <div class="flow-list">
+              <div
+                v-for="(step, index) in props.steps"
+                :key="`${step.num}-${step.title}`"
+                class="flow-item"
+                :class="{ 'is-active': activeStep >= index }"
+              >
+                <div class="flow-left">
+                  <div class="flow-header">
+                    <span class="flow-check">{{ step.num }}</span>
+                    <p class="flow-title">{{ step.title }}</p>
+                  </div>
                 </div>
-              </div>
-              <div class="flow-right">
-                <p class="flow-text">Analyse &amp; Anamnese deines aktuellen Trainings.</p>
-              </div>
-            </div>
-            <div class="flow-item" :class="{ 'is-active': activeStep >= 1 }">
-              <div class="flow-left">
-                <div class="flow-header">
-                  <span class="flow-check">02</span>
-                  <p class="flow-title">Trainingswochen 1–4</p>
+                <div class="flow-right">
+                  <p class="flow-text">{{ step.text }}</p>
                 </div>
-              </div>
-              <div class="flow-right">
-                <p class="flow-text">Systemintegration. Anatomische Anpassung. Strukturelle Stabilisierung.</p>
-              </div>
-            </div>
-            <div class="flow-item" :class="{ 'is-active': activeStep >= 2 }">
-              <div class="flow-left">
-                <div class="flow-header">
-                  <span class="flow-check">03</span>
-                  <p class="flow-title">Meilenstein-Check</p>
-                </div>
-              </div>
-              <div class="flow-right">
-                <p class="flow-text">Belastbarkeit überprüfen. Progression wird freigegeben.</p>
-              </div>
-            </div>
-            <div class="flow-item" :class="{ 'is-active': activeStep >= 3 }">
-              <div class="flow-left">
-                <div class="flow-header">
-                  <span class="flow-check">04</span>
-                  <p class="flow-title">Trainingswochen 5–8</p>
-                </div>
-              </div>
-              <div class="flow-right">
-                <p class="flow-text">Intensitätsaufbau. Kraftentwicklung unter Belastung. Volumensteuerung.</p>
-              </div>
-            </div>
-            <div class="flow-item" :class="{ 'is-active': activeStep >= 4 }">
-              <div class="flow-left">
-                <div class="flow-header">
-                  <span class="flow-check">05</span>
-                  <p class="flow-title">Meilenstein-Check</p>
-                </div>
-              </div>
-              <div class="flow-right">
-                <p class="flow-text">Anpassung des Mesozyklus. Feinjustierung von Intensität und Widerstand.</p>
-              </div>
-            </div>
-            <div class="flow-item" :class="{ 'is-active': activeStep >= 5 }">
-              <div class="flow-left">
-                <div class="flow-header">
-                  <span class="flow-check">06</span>
-                  <p class="flow-title">Trainingswochen 9–11</p>
-                </div>
-              </div>
-              <div class="flow-right">
-                <p class="flow-text">Intensivierung. Leistungsintegration in deine Ausdauer-Routine.</p>
-              </div>
-            </div>
-            <div class="flow-item" :class="{ 'is-active': activeStep >= 6 }">
-              <div class="flow-left">
-                <div class="flow-header">
-                  <span class="flow-check">07</span>
-                  <p class="flow-title">Deload-Woche</p>
-                </div>
-              </div>
-              <div class="flow-right">
-                <p class="flow-text">Regeneration. Superkompensation. Strukturelle Konsolidierung.</p>
-              </div>
-            </div>
-            <div class="flow-item" :class="{ 'is-active': activeStep >= 7 }">
-              <div class="flow-left">
-                <div class="flow-header">
-                  <span class="flow-check">08</span>
-                  <p class="flow-title">Abschlussbewertung</p>
-                </div>
-              </div>
-              <div class="flow-right">
-                <p class="flow-text">Objektive Belastbarkeitsanalyse. Trainingsplanung.</p>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
     </div>
   </section>
 </template>
@@ -413,16 +396,7 @@ onBeforeUnmount(() => {
   position: absolute;
   inset: 0;
   z-index: 0;
-  opacity: 0.75;
-  pointer-events: none;
-}
-
-.framework-shade {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: #000000;
-  opacity: 0.35;
+  opacity: 1;
   pointer-events: none;
 }
 
@@ -433,7 +407,7 @@ onBeforeUnmount(() => {
 }
 
 .bg {
-  fill: #070a10;
+  fill: #000000;
 }
 
 .routeBase {

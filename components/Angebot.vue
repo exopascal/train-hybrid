@@ -3,344 +3,579 @@ import {
   sectionBackgroundStyles,
   type SectionBackgroundStyle,
 } from "~/utils/sectionBackgrounds"
+import AnalysisCtaButton from "~/components/design-system-ui-components/AnalysisCtaButton.vue"
 
 const props = withDefaults(
   defineProps<{
     bgStyle?: SectionBackgroundStyle
     headline?: string
-    subhead?: string
+    subline?: string
+    outcomes?: string[]
+    benefits?: string[]
+    priceAmount?: string
+    pricePeriod?: string
+    priceNote?: string
+    badgeLabel?: string
+    guaranteeHeadline?: string
+    guaranteeNoteTitle?: string
+    guaranteeNoteBody?: string
+    guaranteeTitle?: string
+    guaranteeBody?: string
+    ctaLabel?: string
+    ctaSubtext?: string
+    downsellLabel?: string
+    downsellHref?: string
   }>(),
   {
-    bgStyle: "charcoal",
-    headline: "Was ist dir dein Körper wert, wenn er langfristig belastbar bleiben soll?",
-    subhead: "Wähle dein Hybrid-Niveau",
+    bgStyle: "light",
+    headline: "Du trainierst Ausdauer. Jetzt integrieren wir Kraft.",
+    subline: "In 12 Wochen zu einem neuen Leistungsniveau.",
+    outcomes: [
+      "Muskelaufbau in deiner Routine.",
+      "Klare Progression statt Zufall",
+      "Objektiv messbare Belastbarkeit",
+      "Ein Trainingssystem, das über 12 Wochen hinaus funktioniert",
+    ],
+    benefits: [
+      "EXOPEK Pro (UVP 295 €)",
+      "Persönliches Onboarding (20 Min)",
+      "2 Meilenstein-Checks. Je 30 Min",
+      "Hybrid Coach im Chat",
+      "Abgestimmtes Train Hybrid Protokoll",
+      "Abschluss-Review & nächste Schritte (15 Min)",
+    ],
+    badgeLabel: "TRAIN HYBRID PROTOKOLL",
+    priceAmount: "697 €",
+    pricePeriod: "für 12 Wochen",
+    priceNote: "Kein Abo. Kein Risiko.",
+    guaranteeTitle: "Garantie",
+    guaranteeHeadline: "12‑Wochen‑Fortschritts‑Garantie",
+    guaranteeBody:
+      "Wenn du das Protokoll vollständig umsetzt\nund nach 12 Wochen keinen messbaren Fortschritt erzielst,\nwiederholen wir den Zyklus kostenlos. Ohne Diskussion.",
+    guaranteeNoteTitle: "Dein Risiko: 0",
+    guaranteeNoteBody: "Unser Commitment: 100%",
+    ctaLabel: "Hybrid-Analyse starten",
+    ctaSubtext: "3 Minuten. Klare Einordnung. Kein Verkaufsdruck.",
+    downsellLabel: "Du willst selbstständig starten? → EXOPEK Pro + Trainings-PDF ansehen",
+    downsellHref: "#",
   },
 )
 
 const sectionClass = computed(() => sectionBackgroundStyles[props.bgStyle])
-
-const cardRefs = ref<HTMLElement[]>([])
-const cleanupHoverHandlers: Array<() => void> = []
-const setCardRef = (el: HTMLElement | null) => {
-  if (!el) return
-  cardRefs.value.push(el)
-}
-
-onMounted(async () => {
-  await nextTick()
-  const gsapModule = await import("gsap")
-  const gsap = gsapModule.gsap
-
-  cardRefs.value.forEach((card) => {
-    const onEnter = () => {
-      cardRefs.value.forEach((other) => {
-        if (other !== card) {
-          other.classList.add("is-dim")
-        }
-      })
-      card.classList.add("is-hover")
-      gsap.killTweensOf(card)
-      gsap.to(card, {
-        y: -8,
-        scale: 1.03,
-        duration: 0.22,
-        ease: "power2.out",
-      })
-    }
-
-    const onLeave = () => {
-      cardRefs.value.forEach((other) => {
-        other.classList.remove("is-dim")
-      })
-      card.classList.remove("is-hover")
-      gsap.killTweensOf(card)
-      gsap.to(card, {
-        y: 0,
-        scale: 1,
-        duration: 0.22,
-        ease: "power2.out",
-      })
-    }
-
-    card.addEventListener("mouseenter", onEnter)
-    card.addEventListener("mouseleave", onLeave)
-    cleanupHoverHandlers.push(() => {
-      card.removeEventListener("mouseenter", onEnter)
-      card.removeEventListener("mouseleave", onLeave)
-    })
-  })
-})
-
-onBeforeUnmount(() => {
-  cleanupHoverHandlers.forEach((cleanup) => cleanup())
-})
 </script>
 
 <template>
-  <section :class="[sectionClass, 'angebot-light']">
-    <div class="mx-auto max-w-6xl px-6 py-20 sm:py-28 lg:py-32">
-      <div class="space-y-6 text-left">
-        <p class="angebot-headline text-4xl font-semibold leading-tight sm:text-5xl pb-8">
-          {{ props.headline }}
-        </p>
-        <p class="text-lg text-white/70 sm:text-xl">
-          {{ props.subhead }}
-        </p>
-      </div>
+  <section :class="[sectionClass, 'angebot-section']">
+    <div class="angebot-shell">
+      <div class="angebot-card">
+        <div class="angebot-content">
+          <div class="angebot-badge">
+            <span class="angebot-badge__dot" aria-hidden="true"></span>
+            <span>{{ props.badgeLabel }}</span>
+          </div>
 
-      <div class="mt-12 grid gap-8 lg:grid-cols-3">
-        <article
-          :ref="setCardRef"
-          class="angebot-card flex h-full flex-col rounded-3xl border border-white/10 bg-white/5 p-6 sm:p-8"
-        >
-          <div class="space-y-2">
-            <h3 class="text-2xl font-semibold text-black">Train Hybrid</h3>
-            <p class="text-sm uppercase tracking-[0.2em] text-white/60">Für Selbstständige.</p>
-            <p class="text-white/70">
-              Du möchtest die Methode eigenständig umsetzen.
-            </p>
-          </div>
-          <div class="mt-6 h-px w-full bg-white/10"></div>
-          <p class="mt-6 text-sm uppercase tracking-[0.2em] text-white/60">Enthalten</p>
-          <ul class="offer-list mt-4 space-y-2 text-sm text-white/80 sm:text-base">
-            <li>
-              <span class="offer-check">✅</span>
-              <span>EXOPEK Pro</span>
-            </li>
-            <li>
-              <span class="offer-check">✅</span>
-              <span>kostenlose 12-Wochen Train Hybrid PDF</span>
-            </li>
-          </ul>
-          <p class="mt-6 text-sm uppercase tracking-[0.2em] text-white/60">Nicht enthalten</p>
-          <div class="mt-6 text-sm text-white/60">
-            ❌ Kein Onboarding.
-            <br />
-            ❌ Kein Feedback.
-            <br />
-            ❌ Kein persönlicher Kontakt.
-              <br />
-            ❌ Keine Checkpoints.
-          </div>
-          <div class="mt-6 text-2xl font-semibold text-white">295 € einmalig</div>
-        </article>
+          <h2 class="angebot-title">
+            {{ props.headline }}
+          </h2>
+          <p class="angebot-subline">
+            {{ props.subline }}
+          </p>
 
-        <article
-          :ref="setCardRef"
-          class="angebot-card flex h-full flex-col rounded-3xl border border-white/30 bg-white/10 p-6 sm:p-8"
-        >
-          <div class="space-y-2">
-            <div class="flex items-center justify-between">
-              <h3 class="text-2xl font-semibold text-black">Hybrid Training Protokoll</h3>
-            </div>
-             <p class="text-sm uppercase tracking-[0.2em] text-white/60">Inklusive persönlicher Betreuung.</p>
-            <p class="text-white/70">
-              12 Wochen Struktur. Klare Progression. Messbare Belastbarkeit.
-            </p>
-            <div class="mt-6 rounded-2xl border border-white/30 bg-white/10 p-4">
-            <p class="text-sm font-semibold uppercase tracking-[0.2em] text-white/70">
-              Garantie
-            </p>
-            <p class="mt-3 text-base font-semibold text-white">
-             Wenn du den Zyklus vollständig umsetzt und nach 12 Wochen keine Erfolge erzielt hast, wiederholen wir ihn vollständig — kostenlos.
-            </p>
-          </div>
-          </div>
-          <div class="mt-6 h-px w-full bg-white/10"></div>
-          <p class="mt-6 text-sm uppercase tracking-[0.2em] text-white/60">Zustzlich enthalten</p>
-          <ul class="offer-list mt-4 space-y-2 text-sm text-white/80 sm:text-base">
-            <li>
-              <span class="offer-check">✅</span>
-              <span>Persönliches Onboarding</span>
-            </li>
-            <li>
-              <span class="offer-check">✅</span>
-              <div>
-                <span>4 strukturierte 20-Minuten Performance-Checkpoints</span>
-                <ul class="offer-sublist mt-2 space-y-1 text-sm text-white/70 sm:text-base">
-                </ul>
+          <div class="angebot-benefits">
+            <h3 class="angebot-benefits__title">Was du bekommst</h3>
+            <div class="angebot-benefits__grid">
+              <div
+                v-for="(benefit, index) in props.benefits"
+                :key="`benefit-${index}`"
+                class="angebot-benefit"
+              >
+                <div class="angebot-benefit__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" role="img" aria-label="">
+                    <path
+                      d="M7 7h10v10H7z"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M7 9h10"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M9 7V5h6v2"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </div>
+                <p class="angebot-benefit__text">{{ benefit }}</p>
               </div>
-            </li>
-            <li>
-              <span class="offer-check">✅</span>
-              <span>Progression erfolgt nur nach Checkpoint-Freigabe</span>
-            </li>
-            <li>
-              <span class="offer-check">✅</span>
-              <span>Abschlussbewertung &amp; nächste Trainingsstrategie</span>
-            </li>
-          </ul>
-          <div class="mt-6 text-2xl font-semibold text-white">497 € für 12 Wochen</div>
-          <a
-            href="#erstgespraech"
-            class="mt-6 inline-flex w-fit items-center justify-center rounded-full border border-white/40 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
-          >
-            Kostenloses Erstgespräch vereinbaren
-          </a>
-        </article>
-
-        <article
-          :ref="setCardRef"
-          class="angebot-card flex h-full flex-col rounded-3xl border border-white/10 bg-white/5 p-6 sm:p-8"
-        >
-          <div class="space-y-2">
-            <h3 class="text-2xl font-semibold text-black">Personal Hybrid Training</h3>
-            <p class="text-sm uppercase tracking-[0.2em] text-white/60">Noch 3 Plätze verfügbar.</p>
-            <p class="text-white/70">
-              Persönliche Trainingssteuerung
-              <br />
-              für maximale Wirkung.
-            </p>
+            </div>
           </div>
-          <div class="mt-6 h-px w-full bg-white/10"></div>
-          <p class="mt-6 text-sm uppercase tracking-[0.2em] text-white/60">Zusätzlich enthalten</p>
-          <ul class="offer-list mt-4 space-y-2 text-sm text-white/80 sm:text-base">
-            <li>
-              <span class="offer-check">✅</span>
-              <span>Individuelle Planung</span>
-            </li>
-            <li>
-              <span class="offer-check">✅</span>
-              <span>12 Personal Trainings</span>
-            </li>
-            <li>
-              <span class="offer-check">✅</span>
-              <span>Kontinuierliche Betreuung</span>
-            </li>
-          </ul>
-          <a
-            href="#bewerbung"
-            class="mt-6 inline-flex w-fit items-center justify-center rounded-full border border-white/40 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
-          >
-            Jetzt bewerben
-          </a>
-        </article>
+
+          <div class="angebot-guarantee">
+            <div class="angebot-guarantee__label">Null Risiko. Volle Struktur.</div>
+            <div class="angebot-guarantee__card">
+              <div class="angebot-guarantee__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" role="img" aria-label="Garantie">
+                  <path
+                    d="M12 2l7 3v6c0 5-3.5 9.7-7 11-3.5-1.3-7-6-7-11V5l7-3z"
+                    fill="currentColor"
+                  />
+                  <path
+                    d="M9.2 12.2l1.9 1.9 3.8-3.8"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+              <div class="angebot-guarantee__content">
+                <div class="angebot-guarantee__eyebrow">{{ props.guaranteeTitle }}</div>
+                <div class="angebot-guarantee__title">{{ props.guaranteeHeadline }}</div>
+                <p class="angebot-guarantee__body">{{ props.guaranteeBody }}</p>
+              </div>
+              <div class="angebot-guarantee__note">
+                <div class="angebot-guarantee__note-title">{{ props.guaranteeNoteTitle }}</div>
+                <div class="angebot-guarantee__note-body">{{ props.guaranteeNoteBody }}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="angebot-price">
+            <div class="angebot-price__value">{{ props.priceAmount }}</div>
+            <div class="angebot-price__period">{{ props.pricePeriod }}</div>
+            <div class="angebot-price__note">{{ props.priceNote }}</div>
+          </div>
+
+          <div class="angebot-cta">
+            <p class="angebot-cta__label">150€ Integrationsbonus sichern</p>
+            <AnalysisCtaButton :label="props.ctaLabel" variant="shine" />
+            <p class="angebot-cta__subtext">{{ props.ctaSubtext }}</p>
+            <a class="angebot-downsell" :href="props.downsellHref">
+              {{ props.downsellLabel }}
+            </a>
+          </div>
+
+        </div>
       </div>
     </div>
   </section>
 </template>
+
 <style scoped>
-.angebot-light {
-  background: #f1f5f9;
-  color: #0f172a;
+.angebot-section {
+  --color-background: var(--color-brand-light);
+  --color-background-secondary: var(--color-brand-light);
+  --color-text-primary: var(--color-brand-dark);
+  --color-text-secondary: var(--color-brand-secondary);
+  background: var(--color-brand-light);
+  color: var(--color-brand-dark);
 }
 
-.angebot-light .text-white {
-  color: #0f172a !important;
+.angebot-shell {
+  min-height: 100vh;
+  padding: var(--spacing-4xl) var(--container-padding);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.angebot-light :is(.text-white\/70, .text-white\/60, .text-white\/80) {
-  color: rgba(15, 23, 42, 0.7) !important;
-}
-
-.angebot-light .border-white\/10 {
-  border-color: rgba(15, 23, 42, 0.12) !important;
-}
-
-.angebot-light :is(.border-white\/30, .border-white\/40) {
-  border-color: rgba(15, 23, 42, 0.2) !important;
-}
-
-.angebot-light :is(.bg-white\/5, .bg-white\/10) {
-  background: #ffffff !important;
-}
-
-.angebot-light .bg-white\/10.p-6,
-.angebot-light .bg-white\/10.p-8 {
-  background: #f8fafc !important;
-}
-
-.angebot-light .bg-white\/10.p-4 {
-  background: rgba(15, 23, 42, 0.04) !important;
-  border-color: rgba(15, 23, 42, 0.2) !important;
-  box-shadow: none;
-}
-
-.angebot-light .bg-white\/10 {
-  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.12);
-}
-
-.angebot-light .bg-white\/5 {
-  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.08);
-}
-
-.angebot-light .h-px.bg-white\/10 {
-  background: rgba(15, 23, 42, 0.12) !important;
-}
-
-.angebot-light .angebot-card {
+.angebot-card {
+  width: 100%;
+  max-width: 64rem;
   position: relative;
-  transform-origin: center;
-  box-shadow:
-    0 12px 24px rgba(15, 23, 42, 0.08),
-    0 0 0 1px var(--card-glow-line),
-    0 0 10px var(--card-glow-soft),
-    0 0 22px var(--card-glow-far);
+  overflow: hidden;
+  border-radius: var(--radius-2xl);
+  border: 1px solid color-mix(in srgb, var(--color-text-primary) 10%, transparent);
+  background: var(--color-background);
+  box-shadow: 0 22px 50px rgba(15, 23, 42, 0.08);
 }
 
-.angebot-light .angebot-card::after {
+.angebot-card::before {
   content: "";
   position: absolute;
-  inset: -4px;
-  border-radius: 28px;
-  border: 1px solid var(--card-glow-line);
-  box-shadow: 0 0 10px var(--card-glow-soft);
+  top: calc(var(--spacing-4xl) * -0.6);
+  left: 50%;
+  width: calc(var(--spacing-4xl) * 8);
+  height: calc(var(--spacing-4xl) * 5);
+  transform: translateX(-50%);
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--color-brand-accent) 18%, transparent);
+  filter: blur(calc(var(--spacing-4xl) * 0.55));
+  opacity: 0.8;
+}
+
+.angebot-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 30% 10%,
+    color-mix(in srgb, var(--color-text-primary) 5%, transparent),
+    transparent 55%
+  );
+  opacity: 0.35;
+}
+
+.angebot-content {
+  position: relative;
+  z-index: 1;
+  padding: calc(var(--spacing-4xl) * 1.1) calc(var(--spacing-3xl) * 1.05);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.angebot-badge {
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xs) var(--spacing-lg);
+  border-radius: var(--radius-full);
+  border: 1px solid color-mix(in srgb, var(--color-text-primary) 14%, transparent);
+  background: var(--color-background);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 1.25rem;
+}
+
+.angebot-badge__dot {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: var(--radius-full);
+  background: var(--color-brand-accent);
+}
+
+.angebot-title {
+  font-family: var(--font-family-heading);
+  font-size: clamp(2.1rem, 3.7vw, 3.3rem);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.05;
+  color: var(--color-text-primary);
+}
+
+.angebot-subline {
+  white-space: pre-line;
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.3;
+  color: #f97316;
+  margin-top: 2rem;
+}
+
+.angebot-benefits {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.angebot-benefits__title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.angebot-benefits__grid {
+  display: grid;
+  gap: var(--spacing-lg);
+}
+
+.angebot-benefit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg) var(--spacing-xl);
+  border-radius: var(--radius-xl);
+  border: 1px solid color-mix(in srgb, var(--color-text-primary) 10%, transparent);
+  background: var(--color-background);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+  min-width: 0;
+}
+
+.angebot-benefit__icon {
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--color-brand-accent) 12%, transparent);
+  color: var(--color-brand-accent);
+  border: 1px solid color-mix(in srgb, var(--color-brand-accent) 35%, transparent);
+  flex: 0 0 auto;
+}
+
+.angebot-benefit__icon svg {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.angebot-benefit__text {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+
+.angebot-price {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.angebot-price__value {
+  font-size: clamp(2.1rem, 4.2vw, 3.1rem);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+
+.angebot-price__period {
+  margin-top: calc(var(--spacing-xs) * -0.5);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.angebot-price__note {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.angebot-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-top: 2rem;
+}
+
+.angebot-cta__label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.angebot-cta :deep(.button-shine) {
+  width: min(28rem, 100%);
+  padding: 1rem 2.6rem;
+  font-size: 1rem;
+  border-radius: 16px;
+  background: var(--color-brand-accent);
+  border-color: var(--color-brand-accent);
+  color: #fff;
+  box-shadow: 0 14px 28px rgba(255, 106, 26, 0.2);
+}
+
+.angebot-cta :deep(.button-shine:hover) {
+  transform: translateY(-3px);
+  background: color-mix(in srgb, var(--color-brand-accent) 92%, #ffffff);
+  box-shadow: 0 18px 34px rgba(255, 106, 26, 0.26);
+}
+
+.angebot-cta__subtext {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.angebot-downsell {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-text-secondary) 35%, transparent);
+  padding-bottom: 2px;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.angebot-downsell:hover {
+  color: var(--color-text-primary);
+  border-bottom-color: color-mix(in srgb, var(--color-text-primary) 55%, transparent);
+}
+
+.angebot-guarantee {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.angebot-guarantee__label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.angebot-guarantee__label::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: var(--radius-full);
+  background: var(--color-brand-accent);
+}
+
+.angebot-guarantee__card {
+  display: grid;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-xl);
+  border-radius: var(--radius-2xl);
+  border: 2px solid color-mix(in srgb, var(--color-brand-accent) 80%, transparent);
+  background: var(--color-background);
+  box-shadow: 0 18px 40px color-mix(in srgb, var(--color-brand-accent) 18%, transparent);
+  text-align: left;
+  position: relative;
+}
+
+.angebot-guarantee__card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-2xl);
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--color-brand-accent) 10%, transparent),
+    transparent 60%
+  );
+  opacity: 0.6;
   pointer-events: none;
 }
 
-.angebot-light .angebot-card {
-  --card-glow-line: rgba(255, 106, 0, 0.2);
-  --card-glow-soft: rgba(255, 106, 0, 0.14);
-  --card-glow-far: rgba(255, 106, 0, 0.09);
-  border-color: rgba(255, 106, 0, 0.3) !important;
-}
-
-.angebot-light .angebot-card:nth-of-type(1) {
-  --card-glow-line: rgba(255, 160, 60, 0.2);
-  --card-glow-soft: rgba(255, 160, 60, 0.14);
-  --card-glow-far: rgba(255, 160, 60, 0.09);
-  border-color: rgba(255, 160, 60, 0.3) !important;
-}
-
-.angebot-light .angebot-card:nth-of-type(3) {
-  --card-glow-line: rgba(255, 80, 40, 0.2);
-  --card-glow-soft: rgba(255, 80, 40, 0.14);
-  --card-glow-far: rgba(255, 80, 40, 0.09);
-  border-color: rgba(255, 80, 40, 0.3) !important;
-}
-
-.angebot-light .angebot-card.is-dim {
-  --card-glow-line: rgba(15, 23, 42, 0);
-  --card-glow-soft: rgba(15, 23, 42, 0);
-  --card-glow-far: rgba(15, 23, 42, 0);
-  border-color: rgba(15, 23, 42, 0.12) !important;
-  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
-}
-
-.angebot-headline {
-  color: #020617 !important;
-}
-
-
-.offer-list li {
+.angebot-guarantee__icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: var(--radius-xl);
   display: flex;
-  align-items: flex-start;
-  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--color-brand-accent) 12%, transparent);
+  color: var(--color-brand-accent);
+  border: 1px solid color-mix(in srgb, var(--color-brand-accent) 35%, transparent);
+  position: relative;
+  z-index: 1;
 }
 
-.offer-sublist {
-  margin-left: 26px;
+.angebot-guarantee__icon svg {
+  width: 1.75rem;
+  height: 1.75rem;
 }
 
-.offer-sublist li {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
+.angebot-guarantee__eyebrow {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-brand-accent);
 }
 
-.offer-check {
-  display: inline-flex;
-  line-height: 1.2;
-  flex: 0 0 auto;
+.angebot-guarantee__title {
+  margin-top: var(--spacing-xs);
+  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  position: relative;
+  z-index: 1;
+}
+
+.angebot-guarantee__body {
+  margin-top: var(--spacing-sm);
+  white-space: pre-line;
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  position: relative;
+  z-index: 1;
+}
+
+.angebot-guarantee__note {
+  align-self: flex-start;
+  justify-self: end;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-lg);
+  border: 1px solid color-mix(in srgb, var(--color-brand-accent) 45%, transparent);
+  background: color-mix(in srgb, var(--color-brand-accent) 10%, transparent);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  max-width: 200px;
+  position: relative;
+  z-index: 1;
+}
+
+.angebot-guarantee__note-title {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.angebot-guarantee__note-body {
+  margin-top: var(--spacing-xs);
+  color: var(--color-text-secondary);
+}
+
+@media (min-width: 768px) {
+  .angebot-content {
+    padding: calc(var(--spacing-4xl) * 1.2) calc(var(--spacing-4xl) * 1.4);
+  }
+
+  .angebot-benefits__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .angebot-guarantee__card {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: start;
+  }
+
+  .angebot-guarantee__note {
+    align-self: end;
+  }
+}
+
+@media (max-width: 900px) {
+  .angebot-guarantee__card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .angebot-guarantee__note {
+    justify-self: start;
+    max-width: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .angebot-shell {
+    min-height: auto;
+  }
+
+  .angebot-card::before {
+    width: calc(var(--spacing-4xl) * 5);
+    height: calc(var(--spacing-4xl) * 3.5);
+  }
 }
 </style>

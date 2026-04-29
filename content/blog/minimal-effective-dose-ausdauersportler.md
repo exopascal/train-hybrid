@@ -1,7 +1,7 @@
 ---
 title: "Minimal Effective Dose: So wenig Krafttraining reicht wirklich für Ausdauersportler"
 description: "Die Minimal Effective Dose (MED) erklärt, wie du mit minimalem Aufwand Muskulatur erhältst, stabil bleibst und deine Ausdauerleistung langfristig absicherst."
-category: "Wissen"
+category: "Kraft"
 date: 2026-02-14
 ---
 

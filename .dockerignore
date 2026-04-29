@@ -1,0 +1,87 @@
+# Node.js dependencies
+node_modules/
+.yarn/
+
+# Nuxt build output (if any)
+.nuxt/
+
+# Version control
+.git/
+.gitignore
+.githooks/
+
+# IDE/editor config
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+
+# Environment and secrets
+.env*
+*.env
+*.pem
+*.key
+*.crt
+
+# Build outputs
+/dist/
+/build/
+/out/
+
+# Test and debug artifacts
+test/
+tests/
+debug/
+*.log
+
+# Temporary files and folders
+tmp/
+temp/
+*.tmp
+.local/
+local/
+
+# Documentation and markdown
+*.md
+README*
+docs/
+
+# Project-specific: skip media files in public (if not needed in image)
+# Uncomment the next line if you do NOT want to copy videos into the image
+# public/*.mp4
+
+# Miscellaneous
+*.cjs
+*.toml
+
+# Python cache (not present, but for completeness)
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.coverage
+
+# Go cache (not present, but for completeness)
+/vendor/
+*.test
+.go-cache/
+
+# Java cache (not present, but for completeness)
+target/
+*.class
+.gradle/
+
+# SVN/Mercurial
+.svn/
+.hg/
+
+# Exclude Docker files from ignore (ensure Dockerfile is included)
+!Dockerfile*
+!docker-compose*
+
+# Exclude configuration files needed for build (uncomment if needed)
+#!nuxt.config.ts
+#!package.json

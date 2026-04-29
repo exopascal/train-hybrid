@@ -3,18 +3,24 @@
   "version": "1.0.0",
   "private": true,
   "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
   "scripts": {
     "dev": "nuxt dev",
     "dev:fast": "NUXT_DEVTOOLS=false NUXT_CONTENT_WATCH=false nuxt dev",
     "build": "nuxt build",
     "generate": "nuxt generate",
-    "preview": "nuxt preview"
+    "preview": "nuxt preview",
+    "pipeline:science-blog": "bash scripts/run-science-blog-pipeline.sh"
   },
   "dependencies": {
     "@nuxt/content": "^2.13.4",
     "@pinia/nuxt": "^0.5.4",
     "autoprefixer": "^10.4.20",
+    "dompurify": "^3.3.2",
     "gsap": "^3.14.2",
+    "markdown-it": "^14.1.1",
     "nuxt": "^3.14.0",
     "pinia": "^2.2.2",
     "split-type": "^0.3.4",

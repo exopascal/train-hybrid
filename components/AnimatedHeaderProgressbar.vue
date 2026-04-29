@@ -17,7 +17,7 @@ const props = withDefaults(
     active: true,
     variant: "codex",
     height: 3,
-    speed: 1.4,
+    speed: 2,
     label: "Processing",
     labelStyle: "dots",
   },
@@ -112,7 +112,7 @@ const barStyle = computed(() => ({
 }
 
 .ahp-label--shimmer {
-  --ahp-shimmer: var(--color-accent, #7dd3fc);
+  --ahp-shimmer: var(--color-accent, #fca489);
 }
 
 .ahp-label--shimmer .ahp-labelText {
@@ -161,7 +161,7 @@ const barStyle = computed(() => ({
 }
 
 .ahp--codex {
-  color: var(--ahp-codex, var(--color-accent, #7dd3fc));
+  color: var(--ahp-codex, var(--color-accent, #fca489));
   --ahp-track: var(--color-border, rgba(255, 255, 255, 0.12));
   --ahp-fill: currentColor;
 }
@@ -171,7 +171,7 @@ const barStyle = computed(() => ({
   --ahp-fill: linear-gradient(
     90deg,
     rgba(255, 255, 255, 0),
-    var(--color-accent, #7dd3fc),
+    var(--color-accent, #fca489),
     rgba(255, 255, 255, 0)
   );
 }
@@ -182,6 +182,6 @@ const barStyle = computed(() => ({
 
 .ahp--exo {
   --ahp-track: rgba(255, 255, 255, 0.1);
-  --ahp-fill: var(--color-accent-strong, var(--color-accent, #7dd3fc));
+  --ahp-fill: var(--color-accent-strong, var(--color-accent, #fca489));
 }
 </style>

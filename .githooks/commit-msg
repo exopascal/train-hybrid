@@ -1,0 +1,14 @@
+#!/bin/sh
+
+MSG_FILE="$1"
+
+# Only enforce when files under ai-agents/ are staged
+if git diff --cached --name-only | grep -q "^ai-agents/"; then
+  COMMIT_MSG=$(cat "$MSG_FILE")
+  echo "$COMMIT_MSG" | grep -qi "ai:" || {
+    echo "✖ AI files changed. Commit message must contain 'ai:'"
+    exit 1
+  }
+fi
+
+exit 0

@@ -68,18 +68,8 @@ components/
     ContentSection48.vue              # Content sections
     ... (32 total section components)
 
-  [domain]/                          # Content Wrappers (domain-specific)
-    gym-linden/                       # Gym Linden content
-    transformation/                   # Transformation program
-    about/                            # About page content
-    levelup/                          # Level Up program
-
   layout/                            # Layout components
     Header.vue, Footer.vue
-
-  booking/                           # Booking features
-  admin/                             # Admin features
-  user/                              # User features
 
 config/
   nuxt.config.ts   # Nuxt + Cloudflare + Builder.io

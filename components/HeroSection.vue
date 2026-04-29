@@ -1,24 +1,29 @@
 <script setup lang="ts">
+import AnalysisCtaButton from '~/components/design-system-ui-components/AnalysisCtaButton.vue'
+
 const props = withDefaults(
   defineProps<{
     headline?: string
     subhead?: string
     ctaLabel?: string
+    seoHeadline?: string
+    videoMobileSrc?: string
+    videoDesktopSrc?: string
   }>(),
   {
-    headline: "Krafttraining für Ausdauersportler",
-    subhead: "Mehr Ergebnis. Gleiche Routine.",
-    ctaLabel: "Hybrid Training starten",
+    headline: "12 Wochen. Mehr Kraft. Gleiche Routine.",
+    subhead: "Krafttraining für Ausdauersportler – systematisch in dein bestehendes Training integriert.",
+    ctaLabel: "Hybrid-Analyse starten",
+    seoHeadline:
+      "Krafttraining für Läufer & Radfahrer: Das Hybrid Training System mit EXOPEK.",
+    videoMobileSrc: "/kraft-und-ausdauertraining-hybrid-mobil.mp4",
+    videoDesktopSrc: "/kraft-und-ausdauertraining-hybrid.mp4",
   },
 )
-
-const emit = defineEmits<{
-  (e: "cta"): void
-}>()
 </script>
 
 <template>
-  <section class="relative h-screen overflow-hidden bg-white text-white">
+  <section class="hero-shell">
     <ClientOnly>
       <video
         class="absolute inset-0 z-0 h-full w-full object-cover"
@@ -27,37 +32,34 @@ const emit = defineEmits<{
         playsinline
         preload="metadata"
       >
-        <source src="/kraft-und-ausdauertraining-hybrid-mobil.mp4" media="(max-width: 768px)" />
-        <source src="/kraft-und-ausdauertraining-hybrid.mp4" />
+        <source :src="props.videoMobileSrc" media="(max-width: 768px)" />
+        <source :src="props.videoDesktopSrc" />
       </video>
     </ClientOnly>
     <div class="hero-overlay" />
 
-    <div class="relative z-30 flex h-screen w-full flex-col px-6">
+    <div class="relative z-30 flex min-h-[82svh] w-full flex-col px-6 md:h-screen md:min-h-screen">
       <div class="hero-content-wrapper">
         <div class="hero-inner">
-          <div class="hero-text flex max-w-xl flex-col items-start text-left">
-          <div class="space-y-4">
-            <h1 class="seo-headline text-[12px] font-light uppercase tracking-wide text-white/60">
-              Krafttraining für Läufer & Radfahrer: Das Hybrid Training System mit EXOPEK.
-            </h1>
-            <h2
-              class="text-balance text-[2.2rem] font-semibold leading-tight tracking-tight text-white sm:text-[2.6rem] md:text-[3rem] lg:text-[5rem]"
-              style="color: #ffffff;"
-            >
-              {{ props.headline }}
-            </h2>
-            <p class="text-[1.5rem] font-normal leading-tight text-white sm:text-[2rem] md:text-[2.4rem] lg:text-[3rem]" style="color: #ffffff;">
-              {{ props.subhead }}
-            </p>
-          </div>
-          <button
-            type="button"
-            class="mt-6 inline-flex w-fit items-center justify-center rounded-full border border-white/50 bg-white/10 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
-            @click="emit('cta')"
-          >
-            {{ props.ctaLabel }}
-          </button>
+          <div class="hero-text flex w-full max-w-none flex-col items-start text-left md:w-[55%]">
+            <div class="space-y-4">
+              <h1 class="seo-headline text-[12px] font-light uppercase tracking-wide text-white/60">
+                {{ props.seoHeadline }}
+              </h1>
+              <h2
+                class="text-balance text-[2.4rem] font-semibold leading-tight tracking-tight text-white sm:text-[2.7rem] md:text-[3rem] lg:text-[3.5rem]"
+              >
+                {{ props.headline }}
+              </h2>
+              <p class="text-[1.2rem] font-normal leading-tight text-white sm:text-[1.5rem] md:text-[1.8rem] lg:text-[2.2rem]">
+                {{ props.subhead }}
+              </p>
+            </div>
+            <AnalysisCtaButton
+              class="mt-6"
+              :label="props.ctaLabel"
+              variant="hero"
+            />
           </div>
         </div>
       </div>
@@ -66,12 +68,17 @@ const emit = defineEmits<{
 </template>
 
 <style scoped>
-section {
+.hero-shell {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  background: var(--color-background);
+  color: var(--color-text-light);
   animation: fadeIn 0.6s ease-out both;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  section {
+  .hero-shell {
     animation: none;
   }
 }
@@ -86,11 +93,11 @@ section {
 }
 
 .hero-text h1 {
-  color: #ffffff !important;
+  color: var(--color-text-light) !important;
 }
 
 .hero-text p {
-  color: #ffffff !important;
+  color: var(--color-text-light) !important;
 }
 
 .hero-content-wrapper {
@@ -110,14 +117,20 @@ section {
 
 .hero-text {
   opacity: 1 !important;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 2px 12px color-mix(in srgb, var(--color-brand-dark) 60%, transparent);
 }
 
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+  background: color-mix(in srgb, var(--color-brand-dark) 45%, transparent);
   pointer-events: none;
   z-index: 10;
+}
+
+@media (max-width: 768px) {
+  .hero-shell {
+    min-height: 100svh;
+  }
 }
 </style>

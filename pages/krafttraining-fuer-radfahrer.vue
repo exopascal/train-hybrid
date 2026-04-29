@@ -1,13 +1,46 @@
 <template>
-  <main class="mx-auto max-w-5xl px-6 py-20 sm:py-28 lg:py-32">
-    <div class="space-y-6">
-      <h1 class="text-4xl font-semibold leading-tight text-neutral-900 sm:text-5xl">
-        Krafttraining für Radfahrer
-      </h1>
-      <p class="text-lg text-neutral-700 sm:text-xl">
-        Hier erfährst du, wie du Kraftreize in deine Bike-Einheiten integrierst –
-        direkt in der Ausdauerroutine.
-      </p>
-    </div>
+  <main class="dynamic-page">
+    <component
+      v-for="section in resolvedSections"
+      :key="section.key"
+      :is="section.component"
+      v-bind="section.props"
+    />
   </main>
 </template>
+
+<script setup lang="ts">
+import { createError } from 'h3'
+import { getPageConfig } from '~/page-config'
+import { sectionRegistry } from '~/sections/registry'
+
+const slug = 'krafttraining-fuer-radfahrer'
+const page = getPageConfig(slug)
+
+if (!page) {
+  throw createError({ statusCode: 404, statusMessage: 'Page Not Found' })
+}
+
+const resolvedSections = page.sections.map((section, index) => {
+  const component = sectionRegistry[section.type]
+  if (!component) {
+    throw createError({
+      statusCode: 500,
+      statusMessage: `Unknown section type: ${section.type}`,
+    })
+  }
+
+  return {
+    key: section.id ?? `${section.type}-${index}`,
+    component,
+    props: section.props ?? {},
+  }
+})
+
+useSeoMeta({
+  title: page.seo?.title,
+  description: page.seo?.description,
+  ogTitle: page.seo?.ogTitle ?? page.seo?.title,
+  ogDescription: page.seo?.ogDescription ?? page.seo?.description,
+})
+</script>
