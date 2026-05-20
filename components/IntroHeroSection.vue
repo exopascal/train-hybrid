@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
+import { navigateTo } from '#app'
 import AnalysisCtaButton from '~/components/design-system-ui-components/AnalysisCtaButton.vue'
 import SportSwitch from '~/components/design-system-ui-components/SportSwitch.vue'
 
@@ -34,13 +35,12 @@ const marqueeBottomRef = ref<HTMLElement | null>(null)
 const introVariant = ref<IntroVariant>(props.variant)
 let cleanupAnimation: (() => void) | null = null
 
-const { sportMode, setSportMode } = useSportMode()
+const { sportMode } = useSportMode()
 
 // ── Scroll lock + button feedback ───────────────────────────────────────────
 let scrollLocked    = false
 let gsapInstance: any = null
 let mainST: any     = null   // stored ScrollTrigger instance
-let heroTween: any  = null   // stored animateToHero tween
 let lockTimeoutId: ReturnType<typeof setTimeout> | null = null
 let shakeDebounce:  ReturnType<typeof setTimeout> | null = null
 let isShaking       = false
@@ -96,45 +96,14 @@ const silentUnlock = () => {
   if (shakeDebounce) { clearTimeout(shakeDebounce); shakeDebounce = null }
 }
 
-const animateToHero = () => {
-  const overlay = document.querySelector('.home-page__overlay') as HTMLElement | null
-  if (!overlay || !gsapInstance) return
-
-  // Kill any running hero tween first
-  if (heroTween) { heroTween.kill(); heroTween = null }
-
-  // Disable ScrollTrigger scrub so it doesn't fight the programmatic scroll
-  if (mainST) mainST.disable()
-
-  const targetY = overlay.offsetTop
-  const proxy   = { y: window.scrollY }
-
-  heroTween = gsapInstance.to(proxy, {
-    y: targetY,
-    duration: 1.4,
-    ease: 'power3.inOut',
-    onUpdate() { window.scrollTo(0, proxy.y) },
-    onComplete() {
-      heroTween = null
-      // Re-enable scrub after landing
-      if (mainST) { mainST.enable(); mainST.refresh() }
-    },
-  })
-}
-
-// Full unlock with hero animation — called on button click / skip
 const unlockScroll = () => {
-  if (!scrollLocked) return
   silentUnlock()
-  animateToHero()
 }
 
-const handleSkip = () => unlockScroll()
-
-// When sport mode is set externally → unlock
-watch(sportMode, (newMode) => {
-  if (newMode !== null) unlockScroll()
-})
+const handleSkip = () => {
+  unlockScroll()
+  navigateTo('/hybrid-protokoll')
+}
 
 const testimonials = [
   { name: 'Mara', sport: 'Marathon', quote: 'Beine stabiler, Läufe fühlen sich leichter an.' },
@@ -202,7 +171,6 @@ onMounted(async () => {
           // User scrolled back up — clear any pending lock and undo silently
           clearLockTimeout()
           silentUnlock()
-          if (heroTween) { heroTween.kill(); heroTween = null }
         },
       },
     })

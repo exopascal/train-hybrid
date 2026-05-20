@@ -3,7 +3,11 @@ export type SportMode = 'runner' | 'cyclist'
 const STORAGE_KEY = 'sport-mode'
 
 export const useSportMode = () => {
+  const route = useRoute()
+
   const sportMode = useState<SportMode | null>('sportMode', () => {
+    if (route.path === '/laeufer') return 'runner'
+    if (route.path === '/radfahrer') return 'cyclist'
     if (process.client) {
       const stored = localStorage.getItem(STORAGE_KEY)
       if (stored === 'runner' || stored === 'cyclist') return stored
@@ -19,12 +23,7 @@ export const useSportMode = () => {
   }
 
   const toggleSportMode = () => {
-    if (sportMode.value === 'runner') {
-      setSportMode('cyclist')
-    } else {
-      // null or cyclist → runner
-      setSportMode('runner')
-    }
+    setSportMode(sportMode.value === 'runner' ? 'cyclist' : 'runner')
   }
 
   return { sportMode, setSportMode, toggleSportMode }

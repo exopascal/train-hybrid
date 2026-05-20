@@ -54,9 +54,11 @@
 
 <script setup lang="ts">
 import { gsap } from 'gsap'
+import { navigateTo, useRoute } from '#app'
 import { useSportMode, type SportMode } from '~/composables/useSportMode'
 
 const { sportMode, toggleSportMode } = useSportMode()
+const route = useRoute()
 
 const trackRef = ref<HTMLElement | null>(null)
 const bubbleRef = ref<HTMLElement | null>(null)
@@ -131,10 +133,17 @@ const animateTransition = (fromMode: SportMode | null, toMode: SportMode) => {
 }
 
 const handleToggle = () => {
+  if (route.path === '/laeufer') {
+    navigateTo('/radfahrer')
+    return
+  }
+  if (route.path === '/radfahrer') {
+    navigateTo('/laeufer')
+    return
+  }
   if (isAnimating) return
   isAnimating = true
   isLocalChange = true
-
   const prevMode = sportMode.value
   toggleSportMode()
   animateTransition(prevMode, sportMode.value as SportMode)

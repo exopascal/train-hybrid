@@ -110,9 +110,13 @@ onMounted(() => {
 // ── Pills variant ────────────────────────────────────────────────────────────
 
 const pillOptions = [
-  { label: 'Team Hybrid Runners', short: 'Läufer', value: 'runner' as SportMode },
-  { label: 'Team Hybrid Cycling', short: 'Radfahrer', value: 'cyclist' as SportMode },
+  { label: 'Team Hybrid Runners', short: 'Läufer', value: 'runner' as SportMode, to: '/laeufer' },
+  { label: 'Team Hybrid Cycling', short: 'Radfahrer', value: 'cyclist' as SportMode, to: '/radfahrer' },
 ]
+
+const handlePillClick = (to: string) => {
+  navigateTo(to)
+}
 </script>
 
 <template>
@@ -159,7 +163,7 @@ const pillOptions = [
       :class="{ 'ss-pills__option--active': sportMode === opt.value }"
       :aria-checked="sportMode === opt.value"
       role="radio"
-      @click="setSportMode(opt.value)"
+      @click="handlePillClick(opt.to)"
     >
       <span class="ss-pills__label-full">{{ opt.label }}</span>
       <span class="ss-pills__label-short" aria-hidden="true">{{ opt.short }}</span>
