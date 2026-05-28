@@ -18,8 +18,8 @@ const props = withDefaults(
   }>(),
   {
     eyebrow: 'Krafttraining fuer Ausdauersportler',
-    headlineStart: 'Mach dein Ausdauertraining',
-    headlineAccent: 'kraftvoller.',
+    headlineStart: 'Integriere Krafttraining',
+    headlineAccent: 'in deine Ausdauerroutine.',
     subhead: 'Train Hybrid integriert Krafttraining systematisch in deine Ausdauerroutine.',
     variant: 'a',
   },
