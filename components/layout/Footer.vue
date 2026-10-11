@@ -61,8 +61,7 @@ const currentYear = new Date().getFullYear()
 .site-footer {
   background: #f1f5f9;
   color: #0f172a;
-  padding: var(--spacing-4xl) 0 var(--spacing-xl);
-  margin-top: var(--spacing-4xl);
+  padding: var(--spacing-section) 0 var(--spacing-comfortable);
 }
 
 .footer-inner {
@@ -75,24 +74,24 @@ const currentYear = new Date().getFullYear()
 .footer-content {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: var(--spacing-2xl);
-  margin-bottom: var(--spacing-2xl);
+  gap: var(--spacing-spacious);
+  margin-bottom: var(--spacing-spacious);
 }
 
 .footer-section {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
+  gap: var(--spacing-cozy);
 }
 
 .footer-title {
-  font-size: var(--font-size-2xl);
+  font-size: var(--text-2xl);
   font-weight: var(--font-weight-bold);
   background: var(--gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: var(--spacing-narrow);
 }
 
 .footer-text {
@@ -101,23 +100,23 @@ const currentYear = new Date().getFullYear()
 }
 
 .footer-heading {
-  font-size: var(--font-size-lg);
+  font-size: var(--text-lg);
   font-weight: var(--font-weight-semibold);
   color: #0f172a;
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: var(--spacing-narrow);
 }
 
 .footer-nav {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-narrow);
 }
 
 .footer-link {
   color: rgba(15, 23, 42, 0.72);
   text-decoration: none;
-  transition: color var(--transition-fast);
-  font-size: var(--font-size-base);
+  transition: color var(--duration-fast) var(--ease-default);
+  font-size: var(--text-base);
 }
 
 .footer-link:hover {
@@ -126,7 +125,7 @@ const currentYear = new Date().getFullYear()
 
 .social-links {
   display: flex;
-  gap: var(--spacing-md);
+  gap: var(--spacing-cozy);
 }
 
 .social-link {
@@ -140,7 +139,7 @@ const currentYear = new Date().getFullYear()
   color: #0f172a;
   text-decoration: none;
   font-weight: var(--font-weight-semibold);
-  transition: all var(--transition-fast);
+  transition: all var(--duration-fast) var(--ease-default);
 }
 
 .social-link:hover {
@@ -150,19 +149,19 @@ const currentYear = new Date().getFullYear()
 
 .footer-bottom {
   border-top: 1px solid rgba(15, 23, 42, 0.14);
-  padding-top: var(--spacing-xl);
+  padding-top: var(--spacing-comfortable);
   text-align: center;
 }
 
 .copyright {
   color: rgba(15, 23, 42, 0.72);
-  font-size: var(--font-size-sm);
+  font-size: var(--text-sm);
 }
 
 @media (max-width: 768px) {
   .footer-content {
     grid-template-columns: 1fr;
-    gap: var(--spacing-xl);
+    gap: var(--spacing-comfortable);
   }
 }
 </style>

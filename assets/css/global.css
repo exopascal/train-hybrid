@@ -1,6 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "@nuxt/ui";
 
 /* ===========================
    Design Tokens – TRAIN HYBRID CI
@@ -18,7 +17,7 @@
   /* ===== Semantic Colors ===== */
   --color-background: #ffffff;
   --color-background-secondary: #f1f5f9; /* leicht kühler als Gym */
-  --color-background-dark: #0f172a;
+  --color-background-dark: #f6f6f6;
   --color-background-glass: rgba(255, 255, 255, 0.08);
 
   --color-text-primary: #1e293b;   /* Dunkles Blau-Grau */
@@ -29,6 +28,7 @@
   /* ===== Gradients ===== */
   --gradient-primary: linear-gradient(135deg, var(--color-brand-secondary) 0%, var(--color-brand-primary) 100%);
   --gradient-accent: linear-gradient(135deg, var(--color-brand-accent) 0%, var(--color-brand-secondary) 100%);
+  --gradient-text-orange: linear-gradient(90deg, #f97316 0%, #fb923c 50%, #fdba74 100%);
 
   --color-success: #22c55e;   /* Grün für Vitalität */
   --color-error: #ef4444;
@@ -36,20 +36,20 @@
   --color-info: #3b82f6;
 
   /* ===== Typography ===== */
-  --font-family-base: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-family-heading: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-family-mono: "SF Mono", Monaco, "Roboto Mono", monospace;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-heading: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "SF Mono", Monaco, "Roboto Mono", monospace;
 
-  --font-size-xs: 0.75rem;
-  --font-size-sm: 0.875rem;
-  --font-size-base: 1rem;
-  --font-size-lg: 1.125rem;
-  --font-size-xl: 1.25rem;
-  --font-size-2xl: 1.5rem;
-  --font-size-3xl: 1.875rem;
-  --font-size-4xl: 2.25rem;
-  --font-size-5xl: 3rem;
-  --font-size-6xl: 3.75rem;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  --text-6xl: 3.75rem;
 
   --font-weight-normal: 400;
   --font-weight-medium: 500;
@@ -61,17 +61,20 @@
   --line-height-relaxed: 1.75;
 
   /* ===== Spacing & Sizing ===== */
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
-  --spacing-xl: 2rem;
-  --spacing-2xl: 3rem;
-  --spacing-3xl: 4rem;
-  --spacing-4xl: 6rem;
+  --spacing-tiny: 0.25rem;
+  --spacing-narrow: 0.5rem;
+  --spacing-compact: 0.75rem;
+  --spacing-cozy: 1rem;
+  --spacing-standard: 1.5rem;
+  --spacing-comfortable: 2rem;
+  --spacing-spacious: 3rem;
+  --spacing-generous: 4rem;
+  --spacing-section: 6rem;
+  --spacing-hero: 8rem;
 
   --container-max-width: 1200px;
-  --container-padding: var(--spacing-lg);
+  --container-padding-inline: var(--spacing-standard);
+  --pre-header-height: 40px;
   --header-height: 0px;
 
   /* ===== Shadows ===== */
@@ -87,18 +90,19 @@
   --radius-2xl: 1.5rem;
   --radius-full: 9999px;
 
-  /* ===== Transitions ===== */
-  --transition-fast: 150ms ease-in-out;
-  --transition-normal: 250ms ease-in-out;
-  --transition-slow: 400ms ease-in-out;
+  /* ===== Motion ===== */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+  --ease-default: ease-in-out;
 
   /* ===== Z-Index ===== */
   --z-sticky: 100;
 
   /* ===== Components ===== */
-  --button-padding-md: var(--spacing-md) var(--spacing-xl);
-  --input-padding: var(--spacing-md);
-  --card-padding: var(--spacing-xl);
+  --button-padding-md: var(--spacing-cozy) var(--spacing-comfortable);
+  --input-padding: var(--spacing-cozy);
+  --card-padding: var(--spacing-comfortable);
   --card-border-radius: var(--radius-lg);
 }
 
@@ -107,32 +111,69 @@
    =========================== */
 
 html {
-  font-family: var(--font-family-base);
+  font-family: var(--font-sans);
   color: var(--color-text-primary);
   background-color: var(--color-background);
   -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-family-heading);
+  font-family: var(--font-heading);
   color: var(--color-text-primary);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-tight);
 }
 
 p {
-  color: var(--color-text-secondary);
-  margin-bottom: var(--spacing-md);
+  color: inherit;
+  margin-bottom: var(--spacing-cozy);
 }
 
 a {
   color: var(--color-brand-accent);
   text-decoration: none;
-  transition: color var(--transition-fast);
+  transition: color var(--duration-fast) var(--ease-default);
 }
 
 a:hover {
   color: var(--color-brand-secondary);
+}
+
+/* ===========================
+   Buttons
+   =========================== */
+
+/* Default button style for the whole project. Use this unless a
+   specific design is explicitly requested. Works on <button> and
+   <a>/<NuxtLink> alike. */
+.btn-main {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-full);
+  padding: var(--spacing-narrow) var(--spacing-comfortable);
+  background: var(--color-brand-accent);
+  color: var(--color-text-light);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--color-brand-accent) 35%, transparent);
+  transition: transform var(--duration-fast) var(--ease-default), box-shadow var(--duration-fast) var(--ease-default);
+}
+
+.btn-main:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px color-mix(in srgb, var(--color-brand-accent) 45%, transparent);
+}
+
+@media (max-width: 768px) {
+  .btn-main {
+    min-height: 2.625rem;
+    padding: 0.375rem 0.75rem;
+    font-size: var(--text-sm);
+  }
 }
 
 /* ===========================
@@ -155,6 +196,13 @@ a:hover {
   background: var(--gradient-accent);
 }
 
+.headline-gradient {
+  background: var(--gradient-text-orange);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 /* ===========================
    Glass Effect (optional)
    =========================== */
@@ -171,9 +219,9 @@ a:hover {
 
 @media (max-width: 768px) {
   :root {
-    --container-padding: var(--spacing-md);
-    --font-size-5xl: 2.25rem;
-    --font-size-4xl: 1.875rem;
+    --container-padding-inline: var(--spacing-cozy);
+    --text-5xl: 2.25rem;
+    --text-4xl: 1.875rem;
   }
 }
 
@@ -183,11 +231,12 @@ a:hover {
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-background: #0f172a;
-    --color-background-secondary: #1e293b;
-    --color-text-primary: #f8fafc;
-    --color-text-secondary: #cbd5e1;
-    --color-brand-primary: #4a6a7f;
-    --color-brand-secondary: #64748b;
+    --color-background: #ffffff;
+    --color-background-secondary: #f1f5f9;
+    --color-background-dark: #f6f6f6;
+    --color-text-primary: #1e293b;
+    --color-text-secondary: #475569;
+    --color-brand-primary: #1b263b;
+    --color-brand-secondary: #4a6a7f;
   }
 }

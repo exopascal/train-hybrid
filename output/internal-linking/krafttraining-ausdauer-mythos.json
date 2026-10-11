@@ -1,0 +1,25 @@
+{
+  "article_id": "krafttraining-ausdauer-mythos",
+  "inline_links": [
+    {
+      "target_id": "strength-training-running-economy",
+      "anchor_text": "Laufökonomie",
+      "placement_hint": "section_3"
+    },
+    {
+      "target_id": "minimal-effective-dose-ausdauersportler",
+      "anchor_text": "hohe Intensitäten",
+      "placement_hint": "section_5"
+    }
+  ],
+  "mid_article_card": {
+    "type": "related_article",
+    "target_id": "ausdauertraining-muskelabbau",
+    "headline": "Warum Ausdauertraining dich nicht vor Muskelabbau schützt"
+  },
+  "related_articles": [
+    "strength-training-running-economy",
+    "minimal-effective-dose-ausdauersportler",
+    "ausdauertraining-muskelabbau"
+  ]
+}

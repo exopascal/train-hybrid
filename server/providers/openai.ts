@@ -10,6 +10,10 @@ export async function renderAnswerFromContext(params: {
 }): Promise<string> {
   const { apiKey, userMessage, context, asksForSources } = params
 
+  // RED-FLAG (SENIOR APPROVAL REQUIRED) [Jan Sugint]:
+  // Hier wird RAG-Kontext als Modellinput übergeben.
+  // Vor Änderungen an Quellenumfang/Prompting sollte eine Senior-Freigabe erfolgen.
+
   if (!apiKey) {
     throw createError({
       statusCode: 500,
@@ -29,7 +33,10 @@ export async function renderAnswerFromContext(params: {
     "Nutze ausschließlich den bereitgestellten KONTEXT.",
     "Erfinde keine Fakten und nutze kein externes Wissen.",
     "Wenn der Kontext nicht reicht, sage das klar in 1 Satz.",
-    "Antworte direkt, sachlich und kompakt (maximal 6 Sätze).",
+    "Antworte in klarem Markdown mit kurzen Sektionen wie ein moderner Chat-Assistent.",
+    "Bevorzuge diese Struktur: 'Kurzantwort', 'Einordnung', 'Praktisch für dich'.",
+    "Nutze kurze Absätze und Bulletpoints statt langer Textblöcke.",
+    "Maximal 180 Wörter, außer die Nutzerfrage verlangt explizit mehr Tiefe.",
     "Kein Sales-Ton, keine Funnel-Fragen, keine CTA, keine Termin- oder PDF-Angebote.",
     asksForSources
       ? 'Wenn Quellen gewünscht sind: hänge am Ende eine Zeile "Quellen:" an und liste die Pfade (Pfad: ...), max. 3.'
@@ -45,7 +52,7 @@ export async function renderAnswerFromContext(params: {
     body: JSON.stringify({
       model: "gpt-4o-mini",
       temperature: 0.1,
-      max_tokens: 260,
+      max_tokens: 360,
       messages: [
         { role: "system", content: systemRules },
         {

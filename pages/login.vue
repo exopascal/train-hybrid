@@ -74,7 +74,7 @@ async function onSubmit() {
 
 .login-title {
   margin: 0;
-  font-family: var(--font-family-heading);
+  font-family: var(--font-heading);
   font-size: 1.5rem;
   font-weight: 800;
   color: #0f172a;

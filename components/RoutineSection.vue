@@ -5,78 +5,85 @@ import {
   type SectionBackgroundStyle,
 } from "~/utils/sectionBackgrounds"
 
-const props = withDefaults(
-  defineProps<{
-    bgStyle?: SectionBackgroundStyle
-  }>(),
-  {
-    bgStyle: "night",
-  },
-)
-
-const sectionClass = computed(() => sectionBackgroundStyles[props.bgStyle])
-
 type RoutineItem = {
   name: string
   flow: string[]
   integration: string[]
   details?: string
   videoSrc: string
+  defaultPoster?: string
 }
 
-const items: RoutineItem[] = [
+const props = withDefaults(
+  defineProps<{
+    bgStyle?: SectionBackgroundStyle
+    headline?: string
+    subhead?: string
+    defaultPoster?: string
+    items?: RoutineItem[]
+  }>(),
   {
-    name: "Laufen",
-    flow: ["Rhythmus finden, Puls stabil", "Steigung und Technik", "Locker auslaufen"],
-    integration: ["Kraft in Pausen", "Fuss-/Kniestabi", "Kein Umplanen"],
-    details: `
-      <h3>🏃‍♂️ Laufen: Kraft statt Kilometer-Frust</h3>
-      <p><strong>Laufökonomie maximieren. Gelenke schützen. Zeit sparen.</strong></p>
-      <ul>
-        <li><strong>Bessere Laufökonomie:</strong> Trainiere die Kraftentwicklung bei jedem Schritt.</li>
-        <li><strong>Maximale Stabilität:</strong> Aktive Gesäß- und Rumpfmuskulatur schützt Knie und Hüfte.</li>
-        <li><strong>Integrierter Reiz:</strong> Dein Lauf wird zur Kraft-Einheit – ohne dein Tempo zu drosseln.</li>
-      </ul>
-      <blockquote><strong>Dein Vorteil:</strong> Integriere spezifische Sprints oder Ausfallschritte direkt in deine Runde. <strong>Mehr Reiz in der gleichen Zeit.</strong></blockquote>
-    `,
-    videoSrc: "/trainhybrid-muskeltraining-background-video.mp4",
+    bgStyle: "night",
+    headline: "Widerstand der dich begleitet.",
+    subhead: "Mit dem EXOPEK Pro trainierst du dort, wo du ohnehin bist.",
+    defaultPoster: "/krafttraining-outdoorsport-joggen-laufen-gravelbike.jpg",
+    items: () => [
+      {
+        name: "Laufen",
+        flow: ["Rhythmus finden, Puls stabil", "Steigung und Technik", "Locker auslaufen"],
+        integration: ["Kraft in Pausen", "Fuss-/Kniestabi", "Kein Umplanen"],
+        details: `
+          <h3>🏃‍♂️ Laufen: Kraft statt Kilometer-Frust</h3>
+          <p><strong>Laufökonomie maximieren. Gelenke schützen. Zeit sparen.</strong></p>
+          <ul>
+            <li><strong>Bessere Laufökonomie:</strong> Trainiere die Kraftentwicklung bei jedem Schritt.</li>
+            <li><strong>Maximale Stabilität:</strong> Aktive Gesäß- und Rumpfmuskulatur schützt Knie und Hüfte.</li>
+            <li><strong>Integrierter Reiz:</strong> Dein Lauf wird zur Kraft-Einheit – ohne dein Tempo zu drosseln.</li>
+          </ul>
+          <blockquote><strong>Dein Vorteil:</strong> Integriere spezifische Sprints oder Ausfallschritte direkt in deine Runde. <strong>Mehr Reiz in der gleichen Zeit.</strong></blockquote>
+        `,
+        videoSrc: "/trainhybrid-muskeltraining-background-video.mp4",
+      },
+      {
+        name: "Bike",
+        flow: ["Anrollen, Kadenz setzen", "Druck am Berg", "Ausrollen & Technik"],
+        integration: ["Kraft im Warm-up", "Hinge statt Zusatz", "Beine bleiben frisch"],
+        details: `
+          <h3>🚴‍♂️ Bike: Mehr Watt, weniger Schmerz</h3>
+          <p><strong>Kraftübertragung optimieren. Core-Stabilität sichern.</strong></p>
+          <ul>
+            <li><strong>Höhere Watt-Leistung:</strong> Erzeuge eine stabilere Basis für maximale Kraft auf dem Pedal.</li>
+            <li><strong>Schmerzfrei fahren:</strong> Ein starker Rumpf verhindert das Einknicken und schützt den unteren Rücken.</li>
+            <li><strong>Sprint-Power:</strong> Trainiere Explosivität direkt im Sattel, ohne Umweg ins Fitnessstudio.</li>
+          </ul>
+          <blockquote><strong>Dein Vorteil:</strong> Nutze den Widerstand für Kraft-Intervalle auf deinen Stammstrecken. Performance ohne Zusatzaufwand.</blockquote>
+        `,
+        videoSrc: "/trainhybrid-muskeltraining-krafttraining-background-video.mp4",
+      },
+      {
+        name: "Alltag",
+        flow: ["Einstieg & Rhythmus", "Fokus setzen", "Lockeres Auslaufen"],
+        integration: ["Kraft in Pausen", "Fuss-/Kniestabi", "Kein Umplanen"],
+        details: `
+          <h3>🏠 Alltag: Minimal Effective Dose (MED)</h3>
+          <p><strong>Nebenbei stärker werden. Haltung korrigieren.</strong></p>
+          <ul>
+            <li><strong>Passive Kraft:</strong> Sammle Muskelreize und verbrenne Kalorien beim Gehen oder Einkaufen.</li>
+            <li><strong>Haltungskorrektur:</strong> Der EXOPEK aktiviert deine Rückenstrecker und wirkt dem „Schreibtisch-Buckel" entgegen.</li>
+            <li><strong>Longevity-Hack:</strong> Die einfachste Versicherung gegen Muskelschwund – direkt in deiner täglichen Routine.</li>
+          </ul>
+          <blockquote><strong>Dein Vorteil:</strong> Nutze jede Minute Bewegung für deine Fitness. Stark werden, während du dein Leben lebst.</blockquote>
+        `,
+        videoSrc: "/kraft-und-ausdauertraining-hybrid.mp4",
+      },
+    ],
   },
-  {
-    name: "Bike",
-    flow: ["Anrollen, Kadenz setzen", "Druck am Berg", "Ausrollen & Technik"],
-    integration: ["Kraft im Warm-up", "Hinge statt Zusatz", "Beine bleiben frisch"],
-    details: `
-      <h3>🚴‍♂️ Bike: Mehr Watt, weniger Schmerz</h3>
-      <p><strong>Kraftübertragung optimieren. Core-Stabilität sichern.</strong></p>
-      <ul>
-        <li><strong>Höhere Watt-Leistung:</strong> Erzeuge eine stabilere Basis für maximale Kraft auf dem Pedal.</li>
-        <li><strong>Schmerzfrei fahren:</strong> Ein starker Rumpf verhindert das Einknicken und schützt den unteren Rücken.</li>
-        <li><strong>Sprint-Power:</strong> Trainiere Explosivität direkt im Sattel, ohne Umweg ins Fitnessstudio.</li>
-      </ul>
-      <blockquote><strong>Dein Vorteil:</strong> Nutze den Widerstand für Kraft-Intervalle auf deinen Stammstrecken. Performance ohne Zusatzaufwand.</blockquote>
-    `,
-    videoSrc: "/trainhybrid-muskeltraining-krafttraining-background-video.mp4",
-  },
-  {
-    name: "Alltag",
-    flow: ["Einstieg & Rhythmus", "Fokus setzen", "Lockeres Auslaufen"],
-    integration: ["Kraft in Pausen", "Fuss-/Kniestabi", "Kein Umplanen"],
-    details: `
-      <h3>🏠 Alltag: Minimal Effective Dose (MED)</h3>
-      <p><strong>Nebenbei stärker werden. Haltung korrigieren.</strong></p>
-      <ul>
-        <li><strong>Passive Kraft:</strong> Sammle Muskelreize und verbrenne Kalorien beim Gehen oder Einkaufen.</li>
-        <li><strong>Haltungskorrektur:</strong> Der EXOPEK aktiviert deine Rückenstrecker und wirkt dem „Schreibtisch-Buckel“ entgegen.</li>
-        <li><strong>Longevity-Hack:</strong> Die einfachste Versicherung gegen Muskelschwund – direkt in deiner täglichen Routine.</li>
-      </ul>
-      <blockquote><strong>Dein Vorteil:</strong> Nutze jede Minute Bewegung für deine Fitness. Stark werden, während du dein Leben lebst.</blockquote>
-    `,
-    videoSrc: "/kraft-und-ausdauertraining-hybrid.mp4",
-  },
-]
+)
+
+const sectionClass = computed(() => sectionBackgroundStyles[props.bgStyle])
 
 const activeIndex = ref(-1)
-const activeItem = computed(() => (activeIndex.value >= 0 ? items[activeIndex.value] : null))
+const activeItem = computed(() => (activeIndex.value >= 0 ? props.items[activeIndex.value] : null))
 const videoRef = ref<HTMLVideoElement | null>(null)
 
 const onKey = (event: KeyboardEvent) => {
@@ -84,10 +91,10 @@ const onKey = (event: KeyboardEvent) => {
   event.preventDefault()
   const direction = event.key === "ArrowRight" ? 1 : -1
   if (activeIndex.value === -1) {
-    activeIndex.value = direction === 1 ? 0 : items.length - 1
+    activeIndex.value = direction === 1 ? 0 : props.items.length - 1
     return
   }
-  activeIndex.value = (activeIndex.value + direction + items.length) % items.length
+  activeIndex.value = (activeIndex.value + direction + props.items.length) % props.items.length
 }
 
 const restartVideo = async () => {
@@ -124,10 +131,10 @@ onMounted(() => {
     <div class="mx-auto flex min-h-[95vh] max-w-[1500px] flex-col justify-center px-6 py-16 sm:py-20 lg:py-24">
       <div class="mb-12 space-y-3 pl-12 text-left text-neutral-900">
         <p class="text-4xl font-semibold leading-tight sm:text-6xl lg:text-7xl">
-          Widerstand der dich begleitet.
+          {{ props.headline }}
         </p>
         <p class="text-2xl text-neutral-600 sm:text-3xl lg:text-4xl">
-          Mit dem EXOPEK Pro trainierst du dort, wo du ohnehin bist.
+          {{ props.subhead }}
         </p>
       </div>
 
@@ -144,7 +151,7 @@ onMounted(() => {
             muted
             playsinline
             preload="metadata"
-            poster="/krafttraining-outdoorsport-joggen-laufen-gravelbike.jpg"
+            :poster="props.defaultPoster"
           >
             <source :src="activeItem.videoSrc" />
           </video>
@@ -152,7 +159,7 @@ onMounted(() => {
         <div
           v-if="!activeItem"
           class="absolute inset-0 bg-cover"
-          style="background-image: url('/krafttraining-outdoorsport-joggen-laufen-gravelbike.jpg'); background-position: center right;"
+          :style="{ backgroundImage: `url('${props.defaultPoster}')`, backgroundPosition: 'center right' }"
         />
         <div class="absolute inset-0 bg-gradient-to-tr from-black/70 via-black/30 to-black/50" />
 
@@ -174,7 +181,7 @@ onMounted(() => {
               aria-label="Ausdauerroutine Auswahl"
               @keydown="onKey"
             >
-              <div v-for="(item, index) in items" :key="item.name" class="space-y-3">
+              <div v-for="(item, index) in props.items" :key="item.name" class="space-y-3">
                 <button
                   type="button"
                   role="tab"

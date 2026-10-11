@@ -1,0 +1,25 @@
+{
+  "article_id": "krafttraining-erhoeht-ausdauerleistung-laufoekonomie",
+  "inline_links": [
+    {
+      "target_id": "ausdauertraining-muskelabbau",
+      "anchor_text": "Warum Ausdauertraining dich nicht vor Muskelabbau schützt",
+      "placement_hint": "section_1"
+    },
+    {
+      "target_id": "functional-muscle-running-performance",
+      "anchor_text": "Baue funktionelle Muskulatur auf, um schneller zu werden",
+      "placement_hint": "section_1"
+    }
+  ],
+  "mid_article_card": {
+    "type": "related_article",
+    "target_id": "minimal-effective-dose-ausdauersportler",
+    "headline": "Minimal Effective Dose: So wenig Krafttraining reicht wirklich für Ausdauersportler"
+  },
+  "related_articles": [
+    "ausdauertraining-muskelabbau",
+    "functional-muscle-running-performance",
+    "minimal-effective-dose-ausdauersportler"
+  ]
+}

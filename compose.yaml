@@ -1,0 +1,20 @@
+services:
+  ts-app:
+    build:
+      context: .
+      args:
+        YARN_VERSION: 1.22.22
+    restart: unless-stopped
+    init: true
+    env_file: ./.env
+    environment:
+      NITRO_PRESET: node-server
+    ports:
+      - "3000:3000"  # Nuxt app exposed port
+    # The appuser is set in Dockerfile for security
+    # No volumes needed as this is a stateless web app
+    # No external dependencies detected from README or code
+
+# No external services (database, cache, etc.) detected in project documentation or code
+# No volumes section needed as there are no persistent data requirements
+# No networks section needed as only one service is defined

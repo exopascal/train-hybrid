@@ -1,0 +1,54 @@
+
+---
+
+# 5) `05-workflow.md`
+
+Hier beschreibst du den Ablauf.
+
+```md
+# Workflow
+
+## Internal Linking Workflow
+
+### Step 1: Input
+The system provides:
+- article title
+- article slug
+- article type
+- article text or outline
+- main topic
+- target audience
+- funnel intent
+- validated list of allowed target pages
+
+### Step 2: Retrieval
+The system preselects a candidate set of relevant published pages.
+
+The agent must only work with this candidate set.
+
+### Step 3: Ranking
+The agent ranks candidate pages according to:
+- topical relevance
+- strategic relevance
+- funnel value
+- brand value
+- risk of cannibalization
+
+### Step 4: Recommendation
+The agent returns:
+- target_id
+- link_type
+- anchor_text
+- reason
+- priority
+
+### Step 5: Validation
+The backend validates:
+- target exists
+- target is published
+- target is canonical
+- target is allowed
+- target is not the same as the source page
+
+### Step 6: Rendering
+The frontend or content layer renders the approved links.

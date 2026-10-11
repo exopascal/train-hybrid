@@ -1,8 +1,12 @@
+# Local archive (not pushed)
+_archive/
+
 # Nuxt dev/build outputs
 .output
 .nuxt
 .nitro
 .cache
+.data
 dist
 
 # Node dependencies

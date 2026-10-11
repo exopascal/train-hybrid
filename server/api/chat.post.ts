@@ -16,12 +16,22 @@ type DocRecord = {
   frontmatter: Frontmatter
 }
 
+type SourceRoot = {
+  root: string
+  requirePublicAccess: boolean
+}
+
+// RED-FLAG (DATA GOVERNANCE) [Jan Sugint]:
+// Die Auswahl und Freigabe der Chat-Quellen muss durch einen Senior-Entwickler
+// bzw. Data Owner explizit geprüft und freigegeben werden.
+// Betroffen sind insbesondere zusätzliche Quellen außerhalb von knowledge/recipes.
+
 const ROUTE_THRESHOLD = 0.15
 
 const tokenize = (input: string) => {
   const tokens = input
-    .toLowerCase()
-    .split(/[^a-z0-9äöüß]+/i)
+    .toLocaleLowerCase("de-DE")
+    .split(/[^\p{L}\p{N}]+/u)
     .map((token) => token.trim())
     .filter((token) => token.length >= 3)
 
@@ -93,15 +103,15 @@ const collectMarkdown = async (root: string) => {
   return results
 }
 
-const buildDocRecords = async (roots: string[]) => {
+const buildDocRecords = async (sources: SourceRoot[]) => {
   const docs: DocRecord[] = []
-  for (const root of roots) {
-    const files = await collectMarkdown(root)
+  for (const source of sources) {
+    const files = await collectMarkdown(source.root)
     for (const filePath of files) {
       try {
         const raw = await fs.readFile(filePath, "utf-8")
         const { frontmatter, body } = extractFrontmatter(raw)
-        if (frontmatter.access !== "public") continue
+        if (source.requirePublicAccess && frontmatter.access !== "public") continue
 
         const relativePath = path.relative(process.cwd(), filePath)
         const id = frontmatter.id ?? path.basename(filePath, ".md")
@@ -132,8 +142,12 @@ const scoreDoc = (tokens: string[], content: string) => {
 }
 
 export default defineEventHandler(async (event) => {
-  const body = await readBody<{ message?: string }>(event)
+  const body = await readBody<{
+    message?: string
+    analysis?: Record<string, string | number>
+  }>(event)
   const message = body?.message?.trim() ?? ""
+  const analysis = body?.analysis ?? {}
 
   if (!message) {
     return {
@@ -155,8 +169,17 @@ export default defineEventHandler(async (event) => {
   const knowledgeRoot = path.join(root, "content", "knowledge")
   const recipesRoot = path.join(root, "content", "knowledge", "nutrition", "recipes")
   const legacyRecipesRoot = path.join(root, "content", "recipes")
+  const blogRoot = path.join(root, "content", "blog")
 
-  const docs = await buildDocRecords([knowledgeRoot, recipesRoot, legacyRecipesRoot])
+  // RED-FLAG (SENIOR APPROVAL REQUIRED) [Jan Sugint]:
+  // `content/blog` ist als zusätzliche Datenquelle für den Chat aktiviert.
+  // Diese Datenlage sollte vor Go-Live fachlich/rechtlich freigegeben werden.
+  const docs = await buildDocRecords([
+    { root: knowledgeRoot, requirePublicAccess: true },
+    { root: recipesRoot, requirePublicAccess: true },
+    { root: legacyRecipesRoot, requirePublicAccess: true },
+    { root: blogRoot, requirePublicAccess: false },
+  ])
   if (docs.length === 0) {
     return {
       reply: "Ich finde gerade keine Wissensquellen im Projekt, aus denen ich antworten kann.",
@@ -190,6 +213,13 @@ export default defineEventHandler(async (event) => {
   }
 
   const asksForSources = /quelle|woher|beleg|sources?/i.test(message)
+  const analysisContext = Object.keys(analysis).length > 0
+    ? {
+        source: "hybrid-analysis/current-session",
+        title: "Aktuelle Hybrid-Analyse",
+        text: JSON.stringify(analysis, null, 2),
+      }
+    : null
   const context = top.map((item) => {
     const source = path.relative(contentRoot, path.join(root, item.doc.path))
     return {
@@ -198,12 +228,13 @@ export default defineEventHandler(async (event) => {
       text: item.doc.content.slice(0, 1400),
     }
   })
+  const combinedContext = analysisContext ? [analysisContext, ...context] : context
 
   const { OPENAI_API_KEY } = useRuntimeConfig()
   const reply = await renderAnswerFromContext({
     apiKey: OPENAI_API_KEY,
     userMessage: message,
-    context,
+    context: combinedContext,
     asksForSources,
   })
 
@@ -216,7 +247,7 @@ export default defineEventHandler(async (event) => {
     ...(process.dev
       ? {
           debug: {
-            topSources: context.map((item) => item.source),
+            topSources: combinedContext.map((item) => item.source),
             score: topScore,
           },
         }

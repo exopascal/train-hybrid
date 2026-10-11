@@ -19,6 +19,7 @@
         <template v-if="!isLoginRoute">
           <FooterBannerCTA />
           <Footer />
+          <CookieConsentModal />
         </template>
       </div>
     </div>
@@ -34,6 +35,7 @@ import PreHeader from '~/components/layout/PreHeader.vue'
 import Header from '~/components/layout/Header.vue'
 import FooterBannerCTA from '~/components/layout/FooterBannerCTA.vue'
 import Footer from '~/components/layout/Footer.vue'
+import CookieConsentModal from '~/components/CookieConsentModal.vue'
 
 const route = useRoute()
 const contentShellRef = ref<HTMLElement | null>(null)

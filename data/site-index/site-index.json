@@ -1,0 +1,30 @@
+[
+  {
+    "id": "ausdauertraining-muskelabbau",
+    "title": "Warum Ausdauertraining dich nicht vor Muskelabbau schützt",
+    "url": "/blog/ausdauertraining-muskelabbau",
+    "type": "blog_article",
+    "published": true
+  },
+  {
+    "id": "functional-muscle-running-performance",
+    "title": "Baue funktionelle Muskulatur auf, um schneller zu werden",
+    "url": "/blog/functional-muscle-running-performance",
+    "type": "blog_article",
+    "published": true
+  },
+  {
+    "id": "minimal-effective-dose-ausdauersportler",
+    "title": "Minimal Effective Dose: So wenig Krafttraining reicht wirklich für Ausdauersportler",
+    "url": "/blog/minimal-effective-dose-ausdauersportler",
+    "type": "blog_article",
+    "published": true
+  },
+  {
+    "id": "strength-training-running-economy",
+    "title": "Krafttraining verbessert deine Laufökonomie",
+    "url": "/blog/strength-training-running-economy",
+    "type": "blog_article",
+    "published": true
+  }
+]

@@ -1,0 +1,25 @@
+{
+  "article_id": "ausdauertraining-muskelabbau",
+  "inline_links": [
+    {
+      "target_id": "functional-muscle-running-performance",
+      "anchor_text": "Baue funktionelle Muskulatur auf, um schneller zu werden",
+      "placement_hint": "section_1"
+    },
+    {
+      "target_id": "minimal-effective-dose-ausdauersportler",
+      "anchor_text": "Minimal Effective Dose: So wenig Krafttraining reicht wirklich für Ausdauersportler",
+      "placement_hint": "section_1"
+    }
+  ],
+  "mid_article_card": {
+    "type": "related_article",
+    "target_id": "strength-training-running-economy",
+    "headline": "Krafttraining verbessert deine Laufökonomie"
+  },
+  "related_articles": [
+    "functional-muscle-running-performance",
+    "minimal-effective-dose-ausdauersportler",
+    "strength-training-running-economy"
+  ]
+}
