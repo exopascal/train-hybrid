@@ -1,17 +1,15 @@
 <template>
   <UApp>
     <div id="app">
-      <template v-if="!isLoginRoute">
-        <PreHeader />
-        <Header
-          :force-visible="isBlogRoute"
-          :disable-sticky="isBlogArticleRoute"
-          :menu-open="isMenuOpen"
-          @toggle-menu="toggleMenu"
-          @close-menu="closeMenu"
-        />
-        <div ref="contentBlurRef" class="content-blur-overlay" @click="closeMenu"></div>
-      </template>
+      <PreHeader />
+      <Header
+        :force-visible="isBlogRoute"
+        :disable-sticky="isBlogArticleRoute"
+        :menu-open="isMenuOpen"
+        @toggle-menu="toggleMenu"
+        @close-menu="closeMenu"
+      />
+      <div ref="contentBlurRef" class="content-blur-overlay" @click="closeMenu"></div>
       <div ref="contentShellRef" class="content-shell">
         <main class="main-content">
           <NuxtPage />
@@ -19,9 +17,9 @@
         <template v-if="!isLoginRoute">
           <FooterBannerCTA />
           <Footer />
-          <CookieConsentModal />
         </template>
       </div>
+      <LoginOverlay v-if="isLoginRoute" />
     </div>
   </UApp>
 </template>
@@ -35,7 +33,7 @@ import PreHeader from '~/components/layout/PreHeader.vue'
 import Header from '~/components/layout/Header.vue'
 import FooterBannerCTA from '~/components/layout/FooterBannerCTA.vue'
 import Footer from '~/components/layout/Footer.vue'
-import CookieConsentModal from '~/components/CookieConsentModal.vue'
+import LoginOverlay from '~/components/layout/LoginOverlay.vue'
 
 const route = useRoute()
 const contentShellRef = ref<HTMLElement | null>(null)

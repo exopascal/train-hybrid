@@ -240,3 +240,46 @@ a:hover {
     --color-brand-secondary: #4a6a7f;
   }
 }
+
+/* ===========================
+   Klaro Cookie Consent – Brand Overrides
+   =========================== */
+
+.klaro {
+  --font-size: 15px;
+  --title-font-family: var(--font-heading);
+
+  /* Colors */
+  --dark1: #1b263b;
+  --dark2: #2d3e55;
+  --light1: #f8fafc;
+  --light2: #e2e8f0;
+
+  /* Accent: use brand orange instead of klaro green */
+  --green1: #f97316;
+  --green2: #fb923c;
+  --blue1: #4a6a7f;
+  --blue2: #6b8fa5;
+
+  --border-radius: 8px;
+}
+
+.klaro .cookie-notice {
+  border-radius: 12px;
+  max-width: 480px;
+}
+
+.klaro .cm-btn.cm-btn-success {
+  background-color: var(--color-brand-accent);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.01em;
+}
+
+.klaro .cm-btn.cm-btn-success:hover {
+  background-color: #ea6c0a;
+}
+
+.klaro .cookie-modal .cm-modal.cm-klaro {
+  border-radius: 12px;
+}
