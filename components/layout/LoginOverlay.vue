@@ -1,8 +1,6 @@
 <template>
   <div class="login-overlay">
-    <div class="login-backdrop" />
-    <div class="login-container">
-        <div class="login-card">
+    <div class="login-card">
           <div class="login-logo">
             <img src="/train-hybrid-logo.png" alt="Train Hybrid" class="login-logo-img" />
           </div>
@@ -43,9 +41,8 @@
               {{ loading ? 'Prüfe…' : 'Anmelden' }}
             </button>
           </form>
-        </div>
-      </div>
     </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -75,30 +72,13 @@ async function onSubmit() {
 
 <style scoped>
 .login-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.login-backdrop {
-  position: absolute;
-  inset: 0;
-  backdrop-filter: blur(18px) saturate(0.8);
-  -webkit-backdrop-filter: blur(18px) saturate(0.8);
-  background: color-mix(in srgb, var(--color-brand-primary) 55%, transparent);
-}
-
-.login-container {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  max-width: 26rem;
   padding: 1.5rem;
+  background: color-mix(in srgb, var(--color-brand-primary) 85%, var(--color-brand-dark));
 }
 
 .login-card {
