@@ -1,8 +1,7 @@
 <template>
-  <Teleport to="body">
-    <div class="login-overlay">
-      <div class="login-backdrop" />
-      <div class="login-container">
+  <div class="login-overlay">
+    <div class="login-backdrop" />
+    <div class="login-container">
         <div class="login-card">
           <div class="login-logo">
             <img src="/train-hybrid-logo.png" alt="Train Hybrid" class="login-logo-img" />
@@ -47,7 +46,7 @@
         </div>
       </div>
     </div>
-  </Teleport>
+  </div>
 </template>
 
 <script setup lang="ts">
