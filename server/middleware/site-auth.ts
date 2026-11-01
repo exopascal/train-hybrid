@@ -1,4 +1,4 @@
-import { SITE_AUTH_COOKIE, getSiteAuthToken } from '../utils/site-auth'
+import { SITE_AUTH_COOKIE, getValidTokens } from '../utils/site-auth'
 
 export default defineEventHandler((event) => {
   const path = event.path.split('?')[0]
@@ -14,11 +14,12 @@ export default defineEventHandler((event) => {
 
   if (isExempt) return
 
-  const { siteAuthUser, siteAuthPassword } = useRuntimeConfig(event)
-  if (!siteAuthUser || !siteAuthPassword) return
+  const { siteAuthUsers, siteAuthPassword } = useRuntimeConfig(event)
+  if (!siteAuthUsers || !siteAuthPassword) return
 
+  const validTokens = getValidTokens(siteAuthUsers, siteAuthPassword)
   const cookie = getCookie(event, SITE_AUTH_COOKIE)
-  if (cookie === getSiteAuthToken(siteAuthUser, siteAuthPassword)) return
+  if (cookie && validTokens.includes(cookie)) return
 
   if (path.startsWith('/api/')) {
     throw createError({ statusCode: 401, statusMessage: 'Unauthorized' })

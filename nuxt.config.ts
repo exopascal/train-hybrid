@@ -41,7 +41,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     OPENAI_API_KEY: process.env.OPENAI_API_KEY || '',
-    siteAuthUser: process.env.SITE_AUTH_USER || '',
+    siteAuthUsers: process.env.SITE_AUTH_USERS || '',
     siteAuthPassword: process.env.SITE_AUTH_PASSWORD || '',
   },
 
