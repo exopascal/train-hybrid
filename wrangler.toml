@@ -5,3 +5,9 @@ pages_build_output_dir = "dist"
 [env.production]
 
 [env.production.vars]
+
+# Fragebogen (/fragebogen): KV-Namespace anlegen und hier eintragen, oder im Cloudflare-Dashboard
+# unter Pages > Settings > Bindings als KV namespace mit dem Namen FRAGEBOGEN verbinden.
+# [[kv_namespaces]]
+# binding = "FRAGEBOGEN"
+# id = "<namespace-id>"

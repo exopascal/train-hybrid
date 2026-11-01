@@ -1,72 +1,46 @@
+<script setup lang="ts">
+import { kraftFreebies, type FreebieItem } from '~/data/freebies'
+
+withDefaults(
+  defineProps<{
+    items?: FreebieItem[]
+    headlineAccent?: string
+    headlineRest?: string
+    subLines?: string[]
+  }>(),
+  {
+    items: () => kraftFreebies,
+    headlineAccent: 'KOSTENLOSE',
+    headlineRest: 'EINSTIEGE',
+    subLines: () => [
+      'Ich zeige dir wie du Krafttraining nahtlos in deine Ausdauerroutine integrierst.',
+      'Videos, Guides, Downloads & mehr für deinen Erfolg.',
+    ],
+  },
+)
+</script>
+
 <template>
   <section class="feature-grid" aria-label="Train Hybrid Programm-Inhalte">
     <div class="feature-grid__header">
-      <h2 class="feature-grid__headline"><span class="headline-gradient">KOSTENLOSE</span> EINSTIEGE</h2>
-      <p class="feature-grid__sub">Ich zeige dir wie du Krafttraining nahtlos in deine Ausdauerroutine integrierst. <br> Videos, Guides, Downloads &amp; mehr für deinen Erfolg.</p>
+      <h2 class="feature-grid__headline"><span class="headline-gradient">{{ headlineAccent }}</span> {{ headlineRest }}</h2>
+      <p class="feature-grid__sub">
+        <template v-for="(line, i) in subLines" :key="i">
+          <br v-if="i > 0" />{{ line }}
+        </template>
+      </p>
       <div class="feature-grid__divider" />
     </div>
     <div class="feature-grid__inner">
-
-      <NuxtLink to="/kraft-fundament" class="feature-card">
-        <img
-          src="/trainhybrid-muskeltraining-background-video-fallback.jpg"
-          alt=""
-          class="feature-card__img"
-          loading="lazy"
-        />
+      <NuxtLink v-for="item in items" :key="item.to" :to="item.to" class="feature-card">
+        <img :src="item.img" alt="" :class="['feature-card__img', item.imgClass]" loading="lazy" />
         <div class="feature-card__overlay" />
         <div class="feature-card__text">
-          <h3 class="feature-card__title">Das Kraft-Fundament</h3>
-          <p class="feature-card__sub">Wenn du diese 3 Schritte umsetzt, baust du Kraft auf.</p>
-          <span class="feature-card__cta btn-main">Jetzt loslegen.</span>
+          <h3 class="feature-card__title">{{ item.title }}</h3>
+          <p class="feature-card__sub">{{ item.sub }}</p>
+          <span class="feature-card__cta btn-main">{{ item.cta ?? 'Jetzt loslegen.' }}</span>
         </div>
       </NuxtLink>
-
-      <NuxtLink to="/trainingstransformation" class="feature-card">
-        <img
-          src="/krafttraining-muskeltraining-ausdauersport-outdoor-hybrid.jpg"
-          alt=""
-          class="feature-card__img"
-          loading="lazy"
-        />
-        <div class="feature-card__overlay" />
-        <div class="feature-card__text">
-          <h3 class="feature-card__title">Den Pace erhöhen.</h3>
-          <p class="feature-card__sub">Mit diesen Übungen kannst du schneller werden.</p>
-          <span class="feature-card__cta btn-main">Jetzt loslegen.</span>
-        </div>
-      </NuxtLink>
-
-      <NuxtLink to="/5-wochen-kraft-protokoll" class="feature-card">
-        <img
-          src="/krafttraining-ausdauersportler-mobil-outdoor-hybrid.jpg"
-          alt=""
-          class="feature-card__img feature-card__img--product"
-          loading="lazy"
-        />
-        <div class="feature-card__overlay" />
-        <div class="feature-card__text">
-          <h3 class="feature-card__title">Das 5-Wochen-Kraft-Protokoll</h3>
-          <p class="feature-card__sub">In nur 5 Wochen kommst du zu spürbar mehr Kraft.</p>
-          <span class="feature-card__cta btn-main">Jetzt loslegen.</span>
-        </div>
-      </NuxtLink>
-
-      <NuxtLink to="/schweinehund-trick" class="feature-card">
-        <img
-          src="/krafttraining-outdoorsport-joggen-laufen-gravelbike.jpg"
-          alt=""
-          class="feature-card__img"
-          loading="lazy"
-        />
-        <div class="feature-card__overlay" />
-        <div class="feature-card__text">
-          <h3 class="feature-card__title">Der Schweinehund-Trick</h3>
-          <p class="feature-card__sub">So einfach und schnell bekämpfst du die 3 größten Motivationskiller.</p>
-          <span class="feature-card__cta btn-main">Jetzt loslegen.</span>
-        </div>
-      </NuxtLink>
-
     </div>
   </section>
 </template>

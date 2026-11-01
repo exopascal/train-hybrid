@@ -6,6 +6,8 @@ export default defineEventHandler((event) => {
   const isExempt =
     path === '/login' ||
     path === '/api/login' ||
+    path === '/fragebogen' ||
+    path === '/api/fragebogen' ||
     path.startsWith('/_nuxt/') ||
     path.startsWith('/_ipx/') ||
     /\.[a-z0-9]+$/i.test(path)

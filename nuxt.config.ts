@@ -48,6 +48,14 @@ export default defineNuxtConfig({
   // Cloudflare Pages Optimization
   nitro: {
     preset: nitroPreset,
+    // Fragebogen-Antworten (/api/fragebogen). Produktion: Cloudflare KV, Binding "FRAGEBOGEN".
+    // Lokal (dev): Dateien in ./.data/fragebogen
+    storage: {
+      fragebogen: { driver: 'cloudflare-kv-binding', binding: 'FRAGEBOGEN' },
+    },
+    devStorage: {
+      fragebogen: { driver: 'fs', base: './.data/fragebogen' },
+    },
     routeRules: {
       '/pages/blog': { redirect: '/blog' },
       '/pages/blog/**': { redirect: '/blog' },

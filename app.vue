@@ -1,8 +1,9 @@
 <template>
   <UApp>
     <div id="app">
-      <PreHeader />
+      <PreHeader v-if="!isFragebogenRoute" />
       <Header
+        v-if="!isFragebogenRoute"
         :force-visible="isBlogRoute"
         :disable-sticky="isBlogArticleRoute"
         :menu-open="isMenuOpen"
@@ -14,7 +15,7 @@
         <main class="main-content">
           <NuxtPage />
         </main>
-        <template v-if="!isLoginRoute">
+        <template v-if="!isLoginRoute && !isFragebogenRoute">
           <FooterBannerCTA />
           <Footer />
         </template>
@@ -40,6 +41,7 @@ const isMenuOpen = ref(false)
 
 const isBlogRoute = computed(() => route.path === '/blog' || route.path.startsWith('/blog/'))
 const isLoginRoute = computed(() => route.path === '/login')
+const isFragebogenRoute = computed(() => route.path === '/fragebogen')
 const isBlogArticleRoute = computed(() => route.path.startsWith('/blog/'))
 const isMobileMenuViewport = () => process.client && window.matchMedia('(max-width: 768px)').matches
 
