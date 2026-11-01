@@ -125,7 +125,7 @@ export const PHASE1: FbQuestion[] = [
   { id: 's5d', kind: 'long', title: 'Wie müsste ein Programm aufgebaut sein, damit du dein Problem lösen kannst?' },
   { id: 's5e', kind: 'long', title: 'Was würde dir helfen, dieses Programm durchzuziehen?' },
   { id: 's5e2', kind: 'single', title: 'Wie viel hast du bisher ungefähr für Training, Ausrüstung, Stressreduzierung, Kurse oder Ähnliches ausgegeben?', opts: ['Nichts', 'Unter 100 €', '100 bis 500 €', '500 bis 1.500 €', 'Über 1.500 €'] },
-  { id: 's5f', kind: 'single', title: 'Wie viel bist du bereit, in den nächsten 5 Wochen in deine sportliche Entwicklung zu investieren?', opts: ['Unter 300 €', '300 bis 700 €', '700 bis 1.500 €', 'Über 1.500 €'] },
+  { id: 's5f', kind: 'single', title: 'Wie viel bist du bereit, für deine physische und mentale Gesundheit zu investieren? Über einen Zeitraum von 5 Wochen?', opts: ['Unter 300 €', '300 bis 700 €', '700 bis 1.500 €', 'Über 1.500 €'] },
 ]
 
 export const SKEPSIS: FbQuestion = {
