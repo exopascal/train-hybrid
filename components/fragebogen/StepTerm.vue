@@ -15,10 +15,6 @@ const term = props.screen.term!
     <h2 class="fb-term" tabindex="-1">{{ term.name }}</h2>
     <p class="fb-hint">{{ term.def }}</p>
     <div class="fb-block">
-      <div class="fb-label">Betrifft mich</div>
-      <Scale5 :name="`${id}-b`" :model-value="store.answers[id]?.betrifft" @update:model-value="store.setField(id, 'betrifft', $event)" />
-    </div>
-    <div class="fb-block">
       <div class="fb-label">Klingt interessant</div>
       <Scale5 :name="`${id}-i`" :model-value="store.answers[id]?.interessant" @update:model-value="store.setField(id, 'interessant', $event)" />
     </div>
