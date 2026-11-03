@@ -1,12 +1,11 @@
 import { computed, ref, watch } from 'vue'
 import { defineStore } from 'pinia'
 import {
-  DAYS, GARANTIE_BETRAG, H1S, LETTER, LIEFERUMFANG, PAIRS, PATTERN, PHASE1, PREIS_OPTIONEN, SENTS, SKEPSIS, TERMS, ZEIT,
+  DAYS, EMAIL_RE, GARANTIE_BETRAG, H1S, LETTER, LIEFERUMFANG, PAIRS, PATTERN, PHASE1, PREIS_OPTIONEN, S5D, S5E, SENTS, SKEPSIS, TERMS, ZEIT,
   type FbScreen,
 } from '~/data/fragebogen'
 
 const KEY = 'th-form-v3'
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 interface Timing { ms: number; first?: string; last?: string }
 interface FbState {
@@ -94,7 +93,9 @@ export const useFragebogenStore = defineStore('fragebogen', () => {
     n++; list.push({ id: 's10', kind: 'pairs', step: n, phase: 2, lock: true })
     n++; list.push({ id: 's11', kind: 'ads', step: n, phase: 2, lock: true })
     n++; list.push({ id: 'h1test', kind: 'headline', step: n, phase: 2, lock: true })
-    n++; list.push({ id: SKEPSIS.id, kind: 'long', step: n, phase: 2, q: SKEPSIS, lock: true })
+    n++; list.push({ id: SKEPSIS.id, kind: SKEPSIS.kind, step: n, phase: 2, q: SKEPSIS, lock: true })
+    n++; list.push({ id: S5D.id, kind: 'long', step: n, phase: 2, q: S5D, lock: true })
+    n++; list.push({ id: S5E.id, kind: 'long', step: n, phase: 2, q: S5E, lock: true })
     list.push({ id: 'uebergang2', kind: 'transition2', lock: true })
     n++; list.push({ id: 'plan', kind: 'plan', step: n, phase: 3 })
     n++; list.push({ id: 'angebot', kind: 'offer', step: n, phase: 3 })
@@ -124,6 +125,7 @@ export const useFragebogenStore = defineStore('fragebogen', () => {
     if (!sc || !S.value) return false
     const a = S.value.answers[sc.id]
     if (sc.kind === 'reagiert') return !!(a && a.ueberreagiert)
+    if (sc.kind === 'slider') return a !== undefined
     if (sc.q?.required) return typeof a === 'string' && a.trim().length > 0
     if (sc.kind === 'email') {
       const m = String(a?.email || '').trim()
@@ -189,9 +191,10 @@ export const useFragebogenStore = defineStore('fragebogen', () => {
     s.submittedAt = new Date(now).toISOString()
     const active = Object.values(s.timing).reduce((sum, t) => sum + (t.ms || 0), 0)
     const answersCopy = JSON.parse(JSON.stringify(s.answers))
-    const mail = String(answersCopy.s14?.email || '').trim()
-    const consent = !!answersCopy.s14?.consent
-    delete answersCopy.s14
+    const emailId = screens.value.find((x) => x.kind === 'email')?.id ?? 's14'
+    const mail = String(answersCopy[emailId]?.email || '').trim()
+    const consent = !!answersCopy[emailId]?.consent
+    delete answersCopy[emailId]
     const record = {
       schema: 'th-form-v3',
       runId: s.runId,

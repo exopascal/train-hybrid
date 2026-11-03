@@ -48,6 +48,7 @@
 /* Auswahlkarten */
 .fb-options { display: grid; gap: var(--spacing-compact); }
 .fb-options--cols { grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); }
+.fb-options--stack { grid-template-columns: 1fr; }
 .fb-opt { position: relative; display: block; cursor: pointer; }
 .fb-opt input { position: absolute; opacity: 0; pointer-events: none; }
 .fb-opt__face { display: flex; align-items: center; gap: var(--spacing-compact); min-height: 3.25rem; padding: var(--spacing-compact) var(--spacing-cozy); border: 2px solid var(--fb-line); border-radius: var(--radius-lg); background: var(--color-background); font-weight: var(--font-weight-semibold); transition: border-color var(--duration-fast) var(--ease-default), background var(--duration-fast) var(--ease-default); }
@@ -63,6 +64,7 @@
 .fb-scale-labels--3 { display: grid; grid-template-columns: 1fr 1fr 1fr; }
 .fb-scale-labels--3 span:nth-child(2) { text-align: center; }
 .fb-scale-labels--3 span:nth-child(3) { text-align: right; }
+.fb-scale-labels--3 span.fb-scale-label--active { font-size: var(--text-sm); font-weight: 700; color: var(--color-text-primary); }
 
 /* Felder und Slider */
 .fb-field { display: block; width: 100%; margin-top: var(--spacing-cozy); padding: var(--input-padding); border: 2px solid var(--fb-line); border-radius: var(--radius-md); background: var(--color-background); font: inherit; color: inherit; }

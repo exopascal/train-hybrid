@@ -43,6 +43,8 @@ export default defineNuxtConfig({
     OPENAI_API_KEY: process.env.OPENAI_API_KEY || '',
     siteAuthUsers: process.env.SITE_AUTH_USERS || '',
     siteAuthPassword: process.env.SITE_AUTH_PASSWORD || '',
+    supabaseUrl: process.env.SUPABASE_URL || '',
+    supabaseKey: process.env.SUPABASE_KEY || '',
   },
 
   // Cloudflare Pages Optimization
@@ -50,12 +52,6 @@ export default defineNuxtConfig({
     preset: nitroPreset,
     // Fragebogen-Antworten (/api/fragebogen). Produktion: Cloudflare KV, Binding "FRAGEBOGEN".
     // Lokal (dev): Dateien in ./.data/fragebogen
-    storage: {
-      fragebogen: { driver: 'cloudflare-kv-binding', binding: 'FRAGEBOGEN' },
-    },
-    devStorage: {
-      fragebogen: { driver: 'fs', base: './.data/fragebogen' },
-    },
     routeRules: {
       '/pages/blog': { redirect: '/blog' },
       '/pages/blog/**': { redirect: '/blog' },

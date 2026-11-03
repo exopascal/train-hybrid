@@ -41,7 +41,7 @@ const isMenuOpen = ref(false)
 
 const isBlogRoute = computed(() => route.path === '/blog' || route.path.startsWith('/blog/'))
 const isLoginRoute = computed(() => route.path === '/login')
-const isFragebogenRoute = computed(() => route.path === '/fragebogen')
+const isFragebogenRoute = computed(() => route.path === '/fragebogen' || route.path === '/stresstyp')
 const isBlogArticleRoute = computed(() => route.path.startsWith('/blog/'))
 const isMobileMenuViewport = () => process.client && window.matchMedia('(max-width: 768px)').matches
 

@@ -18,6 +18,7 @@ import StepTerm from './StepTerm.vue'
 import StepText from './StepText.vue'
 import StepThanks from './StepThanks.vue'
 import StepTransition from './StepTransition.vue'
+import StepWorst from './StepWorst.vue'
 import StepYesNo from './StepYesNo.vue'
 
 const store = useFragebogenStore()
@@ -28,7 +29,7 @@ let tapTimer: ReturnType<typeof setTimeout> | undefined
 
 const MAP: Record<string, any> = {
   intro: StepIntro, transition1: StepTransition, transition2: StepTransition, slider: StepSlider, ratings: StepRatings,
-  single: StepSingle, multi: StepMulti, yesno: StepYesNo, reagiert: StepReagiert, long: StepText, term: StepTerm,
+  single: StepSingle, multi: StepMulti, worst: StepWorst, yesno: StepYesNo, reagiert: StepReagiert, long: StepText, term: StepTerm,
   pairs: StepPairs, ads: StepAds, headline: StepHeadline, plan: StepPlan, offer: StepOffer, email: StepEmail, thanks: StepThanks,
 }
 const comp = computed(() => (store.current ? MAP[store.current.kind] : null))

@@ -41,3 +41,6 @@ wrangler.toml.backup
 
 # TypeScript
 *.tsbuildinfo
+
+# MCP local config
+.mcp.json

@@ -6,6 +6,8 @@ const props = defineProps<{
   options: string[]
   /** Option, die alle anderen abwählt */
   exclusive?: string
+  /** Optionen untereinander statt im Grid */
+  stack?: boolean
 }>()
 const emit = defineEmits<{ 'update:modelValue': [value: string[]] }>()
 
@@ -21,7 +23,7 @@ function toggle(value: string, checked: boolean) {
 </script>
 
 <template>
-  <div class="fb-options fb-options--cols">
+  <div :class="['fb-options', stack ? 'fb-options--stack' : 'fb-options--cols']">
     <label v-for="o in options" :key="o" class="fb-opt">
       <input type="checkbox" :value="o" :checked="chosen.includes(o)" @change="toggle(o, ($event.target as HTMLInputElement).checked)" />
       <span class="fb-opt__face">{{ o }}</span>

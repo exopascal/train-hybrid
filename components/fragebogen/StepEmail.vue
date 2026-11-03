@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { EMAIL_RE } from '~/data/fragebogen'
 import { useFragebogenStore } from '~/stores/fragebogen'
 
 const store = useFragebogenStore()
 const a = computed(() => store.answers.s14 || {})
 const hint = computed(() => {
   const m = String(a.value.email || '').trim()
-  if (m && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(m)) return 'Bitte prüfe die E-Mail-Adresse.'
+  if (m && !EMAIL_RE.test(m)) return 'Bitte prüfe die E-Mail-Adresse.'
   if (m && !a.value.consent) return 'Bitte bestätige die Einwilligung, wenn du deine E-Mail-Adresse angibst.'
   return 'Die E-Mail-Adresse ist freiwillig. Du kannst auch ohne sie abschicken.'
 })

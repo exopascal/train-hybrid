@@ -8,6 +8,8 @@ export default defineEventHandler((event) => {
     path === '/api/login' ||
     path === '/fragebogen' ||
     path === '/api/fragebogen' ||
+    path === '/stresstyp' ||
+    path === '/api/stresstyp' ||
     path.startsWith('/_nuxt/') ||
     path.startsWith('/_ipx/') ||
     /\.[a-z0-9]+$/i.test(path)

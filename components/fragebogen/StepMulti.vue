@@ -21,7 +21,7 @@ function onChecks(list: string[]) {
   <div>
     <h2 class="fb-title fb-title--long" tabindex="-1">{{ q.title }}</h2>
     <p class="fb-lead">{{ q.lead }}</p>
-    <Checks :options="q.opts!" :exclusive="q.exclusive" :model-value="chosen" @update:model-value="onChecks" />
+    <Checks :options="q.opts!" :exclusive="q.exclusive" :stack="q.stack" :model-value="chosen" @update:model-value="onChecks" />
     <div v-if="q.text" class="fb-block">
       <label class="fb-label" :for="`${q.id}-text`">Oder in deinen Worten</label>
       <textarea :id="`${q.id}-text`" class="fb-field" rows="3" :value="store.answers[q.id]?.text || ''" @input="store.setField(q.id, 'text', ($event.target as HTMLTextAreaElement).value)" />

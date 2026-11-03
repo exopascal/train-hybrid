@@ -20,7 +20,7 @@ function onPreis(v: string | number) {
     <h2 class="fb-title" tabindex="-1">Dein Programm.</h2>
     <dl class="fb-sum">
       <dt>Dauer</dt><dd>5 Wochen</dd>
-      <dt>Umfang</dt><dd>2 Live Sessions<br />Live Feedback in der Skool Community</dd>
+      <dt>Umfang</dt><dd>2 Sessions / Woche<br />5 Wochen Trainingsplan mit Kombination aus Kraft/Ausdauer und Mindfulness<br />Zugriff auf aufgenommene Sessions<br />Zugriff auf Skool Community</dd>
     </dl>
     <div class="fb-stack">
       <div v-for="x in LIEFERUMFANG" :key="x.name" class="fb-stack__row"><span>{{ x.name }}</span><span>{{ euro(x.cent) }}</span></div>
